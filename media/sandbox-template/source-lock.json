@@ -1,0 +1,157 @@
+{
+  "schema": "jarvis.clip.source-copy.v1",
+  "source": "media/clip-template",
+  "files": [
+    {
+      "path": "clip/.npmrc",
+      "size_bytes": 76,
+      "sha256": "b074e25e678cdcb47d908b2fd7d82f8248b0ce1cbc969f216048002358864f41"
+    },
+    {
+      "path": "clip/fixtures/mr01-props-10s.json",
+      "size_bytes": 1033,
+      "sha256": "1057e5837f6803a1d0605eba6a42513b198859bb957d90dff19bc9db98fcd634"
+    },
+    {
+      "path": "clip/fixtures/mr02-props-12s.json",
+      "size_bytes": 1033,
+      "sha256": "32294624aaca11cbafff063851afdab2bbefb9d5faf57de56528b0e8446c48f0"
+    },
+    {
+      "path": "clip/package-lock.json",
+      "size_bytes": 107927,
+      "sha256": "43c666e7799d51c58c0d7aba8fab3bc4661ed7120e7b63433da476578cd11d96"
+    },
+    {
+      "path": "clip/package.json",
+      "size_bytes": 445,
+      "sha256": "7b31a1a062aa6b69f2a13d12bbf7ccbe390e9459aaab01283be812dfe9bd0d54"
+    },
+    {
+      "path": "clip/scripts/harness.mjs",
+      "size_bytes": 7413,
+      "sha256": "78404099fbaf755934cbda2a6d483476b9382bdaf5a8038b2ec2c072aee5f11d"
+    },
+    {
+      "path": "clip/scripts/render.mjs",
+      "size_bytes": 805,
+      "sha256": "ea6ec8e9fc6a2605856ea590bb2d26f4067566340890b952e27d9269fc4b9558"
+    },
+    {
+      "path": "clip/src/Clip.mjs",
+      "size_bytes": 2215,
+      "sha256": "ce8623e6afa00ad8b2ea1df3fe3df253b75b8cc256df67e16debcc1af0138205"
+    },
+    {
+      "path": "clip/src/Root.mjs",
+      "size_bytes": 523,
+      "sha256": "21a509ac90406654e0df733662ea85e1b0abc888e7d12445600f65d19d863981"
+    },
+    {
+      "path": "clip/src/index.mjs",
+      "size_bytes": 133,
+      "sha256": "ad69af89762a32f007bc9a86c41c6588fd9ca8cab22313c9f48622288e05dbae"
+    },
+    {
+      "path": "clip/src/props.mjs",
+      "size_bytes": 6062,
+      "sha256": "274882578ce9e90b1854e7a11db4c509f87371371bfcbfaeba5031a132d5badc"
+    },
+    {
+      "path": "clip/test/harness.test.mjs",
+      "size_bytes": 9018,
+      "sha256": "f50bea75c0d6044c439c7637812a275e9548c8dfea0a26cad0559518935ab39a"
+    },
+    {
+      "path": "clip/test/props.test.mjs",
+      "size_bytes": 8779,
+      "sha256": "4ca5398e5be87d90a9213fe2ef24c983fec8c04c867aabbbccdbee85a3e3e5c1"
+    },
+    {
+      "path": "font-proof/600.css",
+      "size_bytes": 3173,
+      "sha256": "d64f9d92c9779983e550d89363525138aa17c9f0ad62cb7e604e2dd14a10efd1"
+    },
+    {
+      "path": "font-proof/files/noto-sans-cyrillic-600-normal.woff",
+      "size_bytes": 9240,
+      "sha256": "a7394e7d9b68e97b080b41a85695bdc68c8dce519a265b189a6b8005bdc42aac"
+    },
+    {
+      "path": "font-proof/files/noto-sans-cyrillic-600-normal.woff2",
+      "size_bytes": 7360,
+      "sha256": "b9e717b1a40cfc81a2939da178c0bf99e955fac7f05cb307f8b43e1903ea7777"
+    },
+    {
+      "path": "font-proof/files/noto-sans-cyrillic-ext-600-normal.woff",
+      "size_bytes": 29360,
+      "sha256": "4458b4ea77d252735641281aa78f4fe35996a2688c2ce0ba76c75a62ae1895b8"
+    },
+    {
+      "path": "font-proof/files/noto-sans-cyrillic-ext-600-normal.woff2",
+      "size_bytes": 23032,
+      "sha256": "0648d7d3b25c56770394ace0722271c138e79f263aa101726f6354031f8a74f9"
+    },
+    {
+      "path": "font-proof/files/noto-sans-devanagari-600-normal.woff",
+      "size_bytes": 61388,
+      "sha256": "4f81865583d468a4e70b83f382f4316c0126f750a30714293c15b25f8f7f3395"
+    },
+    {
+      "path": "font-proof/files/noto-sans-devanagari-600-normal.woff2",
+      "size_bytes": 45732,
+      "sha256": "a29b9b662cf60f04dd38d92801106a0bb2d58886631874165c2bf8a3ee390030"
+    },
+    {
+      "path": "font-proof/files/noto-sans-greek-600-normal.woff",
+      "size_bytes": 10060,
+      "sha256": "f408a8fae622b0ed4556ec3b3d546c022df2d3b74e623ffda296b518b3b064d7"
+    },
+    {
+      "path": "font-proof/files/noto-sans-greek-600-normal.woff2",
+      "size_bytes": 8024,
+      "sha256": "54787208b1eadc4b2fccabd60298073ad3c14722534eb6153040058e7bcc8723"
+    },
+    {
+      "path": "font-proof/files/noto-sans-greek-ext-600-normal.woff",
+      "size_bytes": 6500,
+      "sha256": "912e1cf0a3e6a03131670b5c40a8d4352098ab2bb17f5da79e84932b97a10322"
+    },
+    {
+      "path": "font-proof/files/noto-sans-greek-ext-600-normal.woff2",
+      "size_bytes": 4972,
+      "sha256": "36b2f60b6baaf275fc60967641708f6abac95c79a1082cf5151fb65ec499d452"
+    },
+    {
+      "path": "font-proof/files/noto-sans-latin-600-normal.woff",
+      "size_bytes": 17108,
+      "sha256": "954cd3f8c324a52a0a78a97a48f459a6656400a814e427d2ef62a680b83d82b8"
+    },
+    {
+      "path": "font-proof/files/noto-sans-latin-600-normal.woff2",
+      "size_bytes": 13496,
+      "sha256": "79e274470d1c5a0118eb325e2ea6f2eb2a449336d7fde1a4f20a2f32fe1119ed"
+    },
+    {
+      "path": "font-proof/files/noto-sans-latin-ext-600-normal.woff",
+      "size_bytes": 83252,
+      "sha256": "0ffbf906d85d0531c4f52578a5247ad9234dd9bc02f05f8c77f6d827aade4f85"
+    },
+    {
+      "path": "font-proof/files/noto-sans-latin-ext-600-normal.woff2",
+      "size_bytes": 60204,
+      "sha256": "6f1b7d6ef64f6014c3e0a446285021a93f7020f01603a9150b3c73d471d8a6a4"
+    },
+    {
+      "path": "font-proof/files/noto-sans-vietnamese-600-normal.woff",
+      "size_bytes": 7676,
+      "sha256": "951b23406b420eb4bbc67878e16b9d9dcdf82837da28acc121cd36ac3f37087c"
+    },
+    {
+      "path": "font-proof/files/noto-sans-vietnamese-600-normal.woff2",
+      "size_bytes": 5832,
+      "sha256": "810c4f33639e2e7df436de2154aa921845dd56f5bccc301215bcd6791804b44a"
+    }
+  ],
+  "source_bundle_sha256": "15c5f6372789702c41a43a924611d647270df7669c295d99cd4bafee40ea5b51"
+}

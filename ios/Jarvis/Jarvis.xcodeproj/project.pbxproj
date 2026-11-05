@@ -1,0 +1,1255 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECA400000000000000000007 /* Neural recording bridge in Sources */ = {isa = PBXBuildFile; fileRef = ECA400000000000000000002; };
+		ECA400000000000000000008 /* Neural recording adapter in Sources */ = {isa = PBXBuildFile; fileRef = ECA400000000000000000004; };
+		ECA400000000000000000009 /* NeuralAEC in Resources */ = {isa = PBXBuildFile; fileRef = ECA400000000000000000005; };
+		ECA40000000000000000000A /* TensorFlowLiteC in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA400000000000000000006; };
+		E5A11A000000000000000003 /* JarvisAppLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A11A000000000000000004 /* JarvisAppLinkTests.swift */; };
+		E5A11A000000000000000001 /* JarvisAppLinkPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A11A000000000000000002 /* JarvisAppLinkPresenter.swift */; };
+		D0A011000000000000000002 /* JarvisDuplexLifecycleProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A011000000000000000001; };
+		201F4EE9E6579DDB0A2FBA11 /* JarvisAPIClient+Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA924F932B4F114DE4204B; };
+		2B0E67C22332D629FA6F786D /* JarvisAudiovisualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461A1D2FCE391F07DAC549D0; };
+		C0209A43066748ACA04306E4 /* JarvisAudiovisualThumbnailLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCAADEA3AFE6DD15452F3F; };
+		CE8FC4EC22C899EB03FFC855 /* JarvisResourceSelectionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F47299DC9667A40D90EFC; };
+		C10400000000000000000002 /* JarvisRecordingVideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10400000000000000000001; };
+		C10500000000000000000002 /* JarvisRecordingTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10500000000000000000001; };
+		C10600000000000000000002 /* JarvisRecordingWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10600000000000000000001; };
+		C10700000000000000000002 /* JarvisRecordingMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10700000000000000000001; };
+		C10800000000000000000002 /* JarvisRecordingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10800000000000000000001; };
+		C10900000000000000000002 /* JarvisRecordingCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10900000000000000000001; };
+		C11000000000000000000002 /* JarvisRecordingAudioSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11000000000000000000001; };
+		ECA100000000000000000002 /* JarvisEchoDSP.c in Sources */ = {isa = PBXBuildFile; fileRef = ECA100000000000000000001; };
+		ECA200000000000000000002 /* JarvisRecordingEchoDiagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA200000000000000000001; };
+		C11000000000000000000003 /* JarvisRecordingAudioSource.swift in Tests */ = {isa = PBXBuildFile; fileRef = C11000000000000000000001; };
+		C11100000000000000000002 /* JarvisRecordingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11100000000000000000001; };
+		C11200000000000000000002 /* JarvisRecordingCoordinator+Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11200000000000000000001; };
+		C11300000000000000000002 /* JarvisRecordingManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11300000000000000000001; };
+		C11400000000000000000002 /* JarvisRecordingPendingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11400000000000000000001; };
+		C11500000000000000000002 /* JarvisRecordingTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11500000000000000000001; };
+		C11600000000000000000002 /* JarvisRecordingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11600000000000000000001; };
+		C11700000000000000000002 /* JarvisRecordingTransportTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = C11700000000000000000001; };
+		C10800000000000000000003 /* JarvisRecordingControl.swift in Tests */ = {isa = PBXBuildFile; fileRef = C10800000000000000000001; };
+		E81100000000000000000002 /* JarvisMediaStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81100000000000000000001; };
+		E81100000000000000000003 /* JarvisMediaStream.swift in Tests */ = {isa = PBXBuildFile; fileRef = E81100000000000000000001; };
+		C10300000000000000000008 /* JarvisDuplexAudioDevice.swift in Tests */ = {isa = PBXBuildFile; fileRef = C10300000000000000000001; };
+		C10300000000000000000009 /* JarvisDuplexAudioIO.m in Tests */ = {isa = PBXBuildFile; fileRef = C10300000000000000000003; };
+		C1030000000000000000000A /* JarvisDuplexAudioRoute.swift in Tests */ = {isa = PBXBuildFile; fileRef = C10300000000000000000006; };
+		C10300000000000000000007 /* JarvisDuplexAudioRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10300000000000000000006; };
+		C10300000000000000000004 /* JarvisDuplexAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10300000000000000000001; };
+		C10300000000000000000005 /* JarvisDuplexAudioIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C10300000000000000000003; };
+		C99900000000000000000002 /* JarvisLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99900000000000000000001 /* JarvisLocationService.swift */; };
+		C10200000000000000000003 /* JarvisAPIClient+Plugins.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10200000000000000000001; };
+		C10200000000000000000004 /* JarvisPluginsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10200000000000000000002; };
+		C10100000000000000000003 /* JarvisSessionFilesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10100000000000000000001; };
+		C10100000000000000000004 /* JarvisFileMediaPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10100000000000000000002; };
+		C10000000000000000000002 /* JarvisConnectedMediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000000000000000000001; };
+		C09900000000000000000004 /* JarvisMediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09800000000000000000004 /* JarvisMediaPreviewViewModel.swift */; };
+		C09900000000000000000003 /* JarvisAPIClient+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09800000000000000000003 /* JarvisAPIClient+Media.swift */; };
+		C09900000000000000000002 /* JarvisVerifiedTemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09800000000000000000002 /* JarvisVerifiedTemporaryFile.swift */; };
+		C09900000000000000000001 /* JarvisMediaFileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09800000000000000000001 /* JarvisMediaFileModels.swift */; };
+		C09600000000000000000004 /* JarvisPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09500000000000000000004 /* JarvisPreferencesView.swift */; };
+		C09600000000000000000003 /* JarvisPreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09500000000000000000003 /* JarvisPreferencesViewModel.swift */; };
+		C09600000000000000000001 /* JarvisAccountProductModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09500000000000000000001 /* JarvisAccountProductModels.swift */; };
+		C09300000000000000000002 /* JarvisProductCompositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09300000000000000000001; };
+		C09200000000000000000001 /* JarvisWorkspaceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000001 /* JarvisWorkspaceModels.swift */; };
+		C09200000000000000000002 /* JarvisWorkspaceLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000002 /* JarvisWorkspaceLocalStore.swift */; };
+		C09200000000000000000003 /* JarvisWorkspaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000003 /* JarvisWorkspaceViewModel.swift */; };
+		C09200000000000000000004 /* JarvisWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000004 /* JarvisWorkspaceView.swift */; };
+		C09200000000000000000005 /* JarvisSavedCopiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000005 /* JarvisSavedCopiesView.swift */; };
+		C09200000000000000000006 /* JarvisAPIClient+Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000006 /* JarvisAPIClient+Workspace.swift */; };
+		C09200000000000000000007 /* JarvisPluginsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000007 /* JarvisPluginsView.swift */; };
+		C09200000000000000000008 /* JarvisPluginPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000008 /* JarvisPluginPresentation.swift */; };
+		C09200000000000000000009 /* JarvisPluginCatalogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09100000000000000000009 /* JarvisPluginCatalogModels.swift */; };
+		A83700000000000000000003 /* JarvisReplayTaskBarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83700000000000000000001; };
+		A83700000000000000000004 /* JarvisReplayTaskBarrier.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83700000000000000000001; };
+		A83700000000000000000005 /* JarvisReplayTaskBarrierTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83700000000000000000002; };
+		A83600000000000000000015 /* JarvisReplayEvidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83600000000000000000001; };
+		A83600000000000000000029 /* JarvisReplayEvidence.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83600000000000000000001; };
+		A8360000000000000000002A /* JarvisReplayEvidenceTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83600000000000000000002; };
+		A83500000000000000000015 /* JarvisReplayLaunchPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83500000000000000000001; };
+		A83500000000000000000029 /* JarvisReplayLaunchPlan.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83500000000000000000001; };
+		A83500000000000000000016 /* JarvisReplayLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83500000000000000000002; };
+		A8350000000000000000002B /* JarvisReplayIntegrationTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83500000000000000000003; };
+		A83500000000000000000032 /* JarvisWebRTCClient.swift in Tests */ = {isa = PBXBuildFile; fileRef = A82800000000000000000001; };
+		A83400000000000000000015 /* JarvisReplaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83400000000000000000001; };
+		A83400000000000000000029 /* JarvisReplaySession.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83400000000000000000001; };
+		A83400000000000000000016 /* JarvisReplayAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83400000000000000000002; };
+		A8340000000000000000002A /* JarvisReplayAudioDevice.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83400000000000000000002; };
+		A83400000000000000000017 /* JarvisReplayCaptureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83400000000000000000003; };
+		A83400000000000000000018 /* JarvisReplayScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83400000000000000000004; };
+		A8340000000000000000002C /* JarvisReplayScope.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83400000000000000000004; };
+		A83400000000000000000019 /* JarvisReplayAudioAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83400000000000000000005; };
+		A8340000000000000000002D /* JarvisReplayAudioAsset.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83400000000000000000005; };
+		A8340000000000000000002E /* JarvisReplayTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83400000000000000000006; };
+		A83300000000000000000003 /* JarvisLiveAppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83300000000000000000001; };
+		A83300000000000000000004 /* JarvisLiveAppRoute.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83300000000000000000001; };
+		A83300000000000000000005 /* JarvisLiveAppRouteTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83300000000000000000002; };
+		A83200000000000000000003 /* JarvisLiveMediaSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83200000000000000000001; };
+		A83200000000000000000004 /* JarvisLiveMediaSignaling.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83200000000000000000001; };
+		A83200000000000000000005 /* JarvisLiveMediaSignalingTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83200000000000000000002; };
+		A83100000000000000000004 /* JarvisLiveVoiceRouteDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83100000000000000000001; };
+		A83100000000000000000005 /* JarvisLiveWebRTCMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83100000000000000000002; };
+		A83100000000000000000006 /* JarvisLiveVoiceRouteDriver.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83100000000000000000001; };
+		A83100000000000000000007 /* JarvisLiveWebRTCMedia.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83100000000000000000002; };
+		A83100000000000000000008 /* JarvisLiveVoiceRouteTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83100000000000000000003; };
+		A83100000000000000000009 /* WebRTC in Test Frameworks */ = {isa = PBXBuildFile; productRef = A82800000000000000000005; };
+		A83000000000000000000004 /* JarvisVoiceRouteModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83000000000000000000001; };
+		A83000000000000000000005 /* JarvisVoiceRouteDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83000000000000000000002; };
+		A83000000000000000000006 /* JarvisVoiceRouteModels.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83000000000000000000001; };
+		A83000000000000000000007 /* JarvisVoiceRouteDriver.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83000000000000000000002; };
+		A83000000000000000000008 /* JarvisVoiceRouteTests.swift in Tests */ = {isa = PBXBuildFile; fileRef = A83000000000000000000003; };
+		A82800000000000000000009 /* JarvisVisualFrameFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82800000000000000000008; };
+		A8280000000000000000000A /* JarvisVisualFrameFlow.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = A82800000000000000000008; };
+		A82800000000000000000002 /* JarvisWebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82800000000000000000001; };
+		A82800000000000000000003 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = A82800000000000000000005; };
+		A82800000000000000000007 /* JarvisDirectAudioTests.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = A82800000000000000000006; };
+		A75310000000000000000001 /* JarvisPushModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75300000000000000000001; };
+		A75310000000000000000002 /* JarvisPushAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75300000000000000000002; };
+		A75310000000000000000003 /* JarvisPushStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75300000000000000000003; };
+		A75310000000000000000004 /* JarvisNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75300000000000000000004; };
+		A75310000000000000000005 /* JarvisPushViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75300000000000000000005; };
+		A75310000000000000000006 /* JarvisPushSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75300000000000000000006; };
+		A75200000000000000000001 /* JarvisWorkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75100000000000000000001 /* JarvisWorkModels.swift */; };
+		A75200000000000000000002 /* JarvisWorkInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75100000000000000000002 /* JarvisWorkInboxViewModel.swift */; };
+		A75200000000000000000003 /* JarvisWorkInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75100000000000000000003 /* JarvisWorkInboxView.swift */; };
+		F37100000000000000000003 /* JarvisFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37000000000000000000003 /* JarvisFilesView.swift */; };
+		F37100000000000000000002 /* JarvisFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37000000000000000000002 /* JarvisFilesViewModel.swift */; };
+		F37100000000000000000001 /* JarvisFileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37000000000000000000001 /* JarvisFileModels.swift */; };
+		F70000000000000000000002 /* AudioPlaybackLedger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70000000000000000000001; };
+		F70000000000000000000003 /* AudioPlaybackLedger.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = F70000000000000000000001; };
+		F60000000000000000000002 /* RealtimeDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60000000000000000000001; };
+		F60000000000000000000003 /* RealtimeDiagnostics.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = F60000000000000000000001; };
+		F60000000000000000000004 /* AudioPlaybackService.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003C; };
+		F60000000000000000000005 /* RealtimeDiagnosticsTests.swift in Test Sources */ = {isa = PBXBuildFile; fileRef = F60000000000000000000006; };
+		000000000000000000000029 /* JarvisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000017 /* JarvisApp.swift */; };
+		00000000000000000000002A /* JarvisRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000018 /* JarvisRootView.swift */; };
+		00000000000000000000002B /* JarvisColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000019 /* JarvisColors.swift */; };
+		00000000000000000000002C /* JarvisTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001A /* JarvisTypography.swift */; };
+		00000000000000000000002D /* JarvisMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001B /* JarvisMotion.swift */; };
+		00000000000000000000002E /* JarvisComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001C /* JarvisComponents.swift */; };
+		00000000000000000000002F /* JarvisModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001D /* JarvisModels.swift */; };
+		000000000000000000000030 /* JarvisAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001E /* JarvisAPIClient.swift */; };
+		000000000000000000000031 /* JarvisSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001F /* JarvisSessionStore.swift */; };
+		000000000000000000000032 /* JarvisAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000020 /* JarvisAppViewModel.swift */; };
+		000000000000000000000033 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000021 /* LaunchView.swift */; };
+		000000000000000000000034 /* SetupTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000022 /* SetupTokenView.swift */; };
+		000000000000000000000035 /* AmbientCompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000023 /* AmbientCompanionView.swift */; };
+		000000000000000000000036 /* MemoryRailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000024 /* MemoryRailView.swift */; };
+		000000000000000000000037 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000025 /* SettingsView.swift */; };
+		000000000000000000000038 /* BackendBaseURL.override.txt in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000026 /* BackendBaseURL.override.txt */; };
+		000000000000000000000039 /* StaticBearerToken.override.txt in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000027 /* StaticBearerToken.override.txt */; };
+		000000000000000000000041 /* JarvisRealtimeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003A /* JarvisRealtimeModels.swift */; };
+		000000000000000000000042 /* AudioCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003B /* AudioCaptureService.swift */; };
+		000000000000000000000043 /* AudioPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003C /* AudioPlaybackService.swift */; };
+		000000000000000000000044 /* JarvisRealtimeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003D /* JarvisRealtimeClient.swift */; };
+		000000000000000000000045 /* AudioSegmenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003E /* AudioSegmenter.swift */; };
+		000000000000000000000046 /* AudioRouteDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003F /* AudioRouteDiagnostics.swift */; };
+		000000000000000000000047 /* JarvisAudioSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000040 /* JarvisAudioSessionViewModel.swift */; };
+		00000000000000000000004D /* JarvisVisualModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000048 /* JarvisVisualModels.swift */; };
+		00000000000000000000004E /* FrameSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000049 /* FrameSampler.swift */; };
+		00000000000000000000004F /* RayBanDATService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000004A /* RayBanDATService.swift */; };
+		000000000000000000000050 /* GlassesFrameCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000004B /* GlassesFrameCaptureService.swift */; };
+		000000000000000000000051 /* VisualFrameCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000004C /* VisualFrameCaptureCoordinator.swift */; };
+		000000000000000000000062 /* MWDATCore in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000060 /* MWDATCore */; };
+		000000000000000000000063 /* MWDATCamera in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000061 /* MWDATCamera */; };
+		000000000000000000000064 /* JarvisVisualIngestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000065 /* JarvisVisualIngestClient.swift */; };
+		000000000000000000000068 /* JarvisReminderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000066 /* JarvisReminderModels.swift */; };
+		000000000000000000000069 /* ReminderInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000067 /* ReminderInboxView.swift */; };
+		00000000000000000000006C /* JarvisCalendarModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000006A /* JarvisCalendarModels.swift */; };
+		00000000000000000000006D /* GoogleCalendarAuthorizationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000006B /* GoogleCalendarAuthorizationSession.swift */; };
+		00000000000000000000006E /* JarvisMemoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000006F /* JarvisMemoryModels.swift */; };
+		000000000000000000000070 /* MemoryTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000071 /* MemoryTimelineView.swift */; };
+		000000000000000000000072 /* MemoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000073 /* MemoryDetailView.swift */; };
+		000000000000000000000074 /* WorkingMemorySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000075 /* WorkingMemorySummaryView.swift */; };
+		C0D600000000000000000001 /* JarvisSandboxModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D500000000000000000001 /* JarvisSandboxModels.swift */; };
+		C0D600000000000000000002 /* JarvisSandboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D500000000000000000002 /* JarvisSandboxViewModel.swift */; };
+		C0D600000000000000000003 /* JarvisSandboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D500000000000000000003 /* JarvisSandboxView.swift */; };
+		C0D600000000000000000004 /* JarvisSandboxViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D500000000000000000004; };
+/* End PBXBuildFile section */
+        F50000000000000000000020 /* JarvisRealtimeClient.swift in Tests */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003D /* JarvisRealtimeClient.swift */; };
+        F50000000000000000000021 /* JarvisRealtimeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000022 /* JarvisRealtimeClientTests.swift */; };
+/* Provider selection production source and unhosted native tests. */
+		F50000000000000000000002 /* JarvisAudioProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000001 /* JarvisAudioProvider.swift */; };
+		F50000000000000000000004 /* JarvisAudioProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50000000000000000000003 /* JarvisAudioProviderTests.swift */; };
+		F50000000000000000000005 /* JarvisModels.swift in Tests */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001D /* JarvisModels.swift */; };
+		F50000000000000000000006 /* JarvisRealtimeModels.swift in Tests */ = {isa = PBXBuildFile; fileRef = 00000000000000000000003A /* JarvisRealtimeModels.swift */; };
+		F50000000000000000000007 /* JarvisSessionStore.swift in Tests */ = {isa = PBXBuildFile; fileRef = 00000000000000000000001F /* JarvisSessionStore.swift */; };
+		F50000000000000000000008 /* JarvisAudioProvider.swift in Tests */ = {isa = PBXBuildFile; fileRef = F50000000000000000000001 /* JarvisAudioProvider.swift */; };
+
+/* Begin PBXFileReference section */
+		ECA400000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jarvis/Services/AudioEcho/Neural/JarvisNeuralRecordingFilter.h"; sourceTree = SOURCE_ROOT; };
+		ECA400000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "Jarvis/Services/AudioEcho/Neural/JarvisNeuralRecordingFilter.mm"; sourceTree = SOURCE_ROOT; };
+		ECA400000000000000000003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Jarvis/Services/AudioEcho/Neural/NativeRecordingAEC.hpp"; sourceTree = SOURCE_ROOT; };
+		ECA400000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Jarvis/Services/AudioEcho/Neural/JarvisNeuralRecordingFilter.swift"; sourceTree = SOURCE_ROOT; };
+		ECA400000000000000000005 = {isa = PBXFileReference; lastKnownFileType = folder; path = "Jarvis/Resources/NeuralAEC"; sourceTree = SOURCE_ROOT; };
+		ECA400000000000000000006 = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "Vendor/TensorFlowLiteC.xcframework"; sourceTree = SOURCE_ROOT; };
+		E5A11A000000000000000004 /* JarvisAppLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAppLinkTests.swift; sourceTree = "<group>"; };
+		E5A11A000000000000000002 /* JarvisAppLinkPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAppLinkPresenter.swift; sourceTree = "<group>"; };
+		D0A011000000000000000001 /* JarvisDuplexLifecycleProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisDuplexLifecycleProbe.swift; sourceTree = SOURCE_ROOT; };
+		94AA924F932B4F114DE4204B /* JarvisAPIClient+Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisAPIClient+Recording.swift"; sourceTree = "<group>"; };
+		461A1D2FCE391F07DAC549D0 /* JarvisAudiovisualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudiovisualView.swift; sourceTree = "<group>"; };
+		C5DCAADEA3AFE6DD15452F3F /* JarvisAudiovisualThumbnailLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudiovisualThumbnailLoader.swift; sourceTree = "<group>"; };
+		283F47299DC9667A40D90EFC /* JarvisResourceSelectionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisResourceSelectionContext.swift; sourceTree = "<group>"; };
+		C10400000000000000000001 /* JarvisRecordingVideoSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingVideoSource.swift; sourceTree = SOURCE_ROOT; };
+		C10500000000000000000001 /* JarvisRecordingTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingTimeline.swift; sourceTree = SOURCE_ROOT; };
+		C10600000000000000000001 /* JarvisRecordingWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingWriter.swift; sourceTree = SOURCE_ROOT; };
+		C10700000000000000000001 /* JarvisRecordingMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingMixer.swift; sourceTree = SOURCE_ROOT; };
+		C10800000000000000000001 /* JarvisRecordingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingControl.swift; sourceTree = SOURCE_ROOT; };
+		C10900000000000000000001 /* JarvisRecordingCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingCapture.swift; sourceTree = SOURCE_ROOT; };
+		C11000000000000000000001 /* JarvisRecordingAudioSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingAudioSource.swift; sourceTree = SOURCE_ROOT; };
+		ECA100000000000000000001 /* JarvisEchoDSP.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Jarvis/Services/AudioEcho/JarvisEchoDSP.c; sourceTree = SOURCE_ROOT; };
+		ECA200000000000000000001 /* JarvisRecordingEchoDiagnostic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/AudioEcho/JarvisRecordingEchoDiagnostic.swift; sourceTree = SOURCE_ROOT; };
+		C11100000000000000000001 /* JarvisRecordingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		C11200000000000000000001 /* JarvisRecordingCoordinator+Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Jarvis/Services/JarvisRecordingCoordinator+Capture.swift"; sourceTree = SOURCE_ROOT; };
+		C11300000000000000000001 /* JarvisRecordingManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingManifest.swift; sourceTree = SOURCE_ROOT; };
+		C11400000000000000000001 /* JarvisRecordingPendingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingPendingStore.swift; sourceTree = SOURCE_ROOT; };
+		C11500000000000000000001 /* JarvisRecordingTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingTransfers.swift; sourceTree = SOURCE_ROOT; };
+		C11600000000000000000001 /* JarvisRecordingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisRecordingAppController.swift; sourceTree = SOURCE_ROOT; };
+		C11700000000000000000001 /* JarvisRecordingTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisProductIntegrationTests/JarvisRecordingTransportTests.swift; sourceTree = SOURCE_ROOT; };
+		C10300000000000000000006 /* JarvisDuplexAudioRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisDuplexAudioRoute.swift; sourceTree = SOURCE_ROOT; };
+		E81100000000000000000001 /* JarvisMediaStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisMediaStream.swift; sourceTree = SOURCE_ROOT; };
+		C10300000000000000000001 /* JarvisDuplexAudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisDuplexAudioDevice.swift; sourceTree = SOURCE_ROOT; };
+		C10300000000000000000002 /* JarvisDuplexAudioIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Jarvis/Services/JarvisDuplexAudioIO.h; sourceTree = SOURCE_ROOT; };
+		C10300000000000000000003 /* JarvisDuplexAudioIO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Jarvis/Services/JarvisDuplexAudioIO.m; sourceTree = SOURCE_ROOT; };
+		C99900000000000000000001 /* JarvisLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisLocationService.swift; sourceTree = "<group>"; };
+		C10200000000000000000001 /* JarvisAPIClient+Plugins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisAPIClient+Plugins.swift"; sourceTree = "<group>"; };
+		C10200000000000000000002 /* JarvisPluginsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisPluginsViewModel.swift; sourceTree = "<group>"; };
+		C10100000000000000000001 /* JarvisSessionFilesClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisSessionFilesClient.swift; sourceTree = "<group>"; };
+		C10100000000000000000002 /* JarvisFileMediaPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisFileMediaPreviewModel.swift; sourceTree = "<group>"; };
+		C10000000000000000000001 /* JarvisConnectedMediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisConnectedMediaTests.swift; sourceTree = "<group>"; };
+		C09800000000000000000004 /* JarvisMediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisMediaPreviewViewModel.swift"; sourceTree = "<group>"; };
+		C09800000000000000000003 /* JarvisAPIClient+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisAPIClient+Media.swift"; sourceTree = "<group>"; };
+		C09800000000000000000002 /* JarvisVerifiedTemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisVerifiedTemporaryFile.swift"; sourceTree = "<group>"; };
+		C09800000000000000000001 /* JarvisMediaFileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisMediaFileModels.swift"; sourceTree = "<group>"; };
+		C09500000000000000000004 /* JarvisPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisPreferencesView.swift"; sourceTree = "<group>"; };
+		C09500000000000000000003 /* JarvisPreferencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisPreferencesViewModel.swift"; sourceTree = "<group>"; };
+		C09500000000000000000001 /* JarvisAccountProductModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisAccountProductModels.swift"; sourceTree = "<group>"; };
+		C09300000000000000000001 /* JarvisProductCompositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisProductCompositionTests.swift; sourceTree = "<group>"; };
+		C09300000000000000000003 /* JarvisProductIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JarvisProductIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C09100000000000000000001 /* JarvisWorkspaceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisWorkspaceModels.swift"; sourceTree = "<group>"; };
+		C09100000000000000000002 /* JarvisWorkspaceLocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisWorkspaceLocalStore.swift"; sourceTree = "<group>"; };
+		C09100000000000000000003 /* JarvisWorkspaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisWorkspaceViewModel.swift"; sourceTree = "<group>"; };
+		C09100000000000000000004 /* JarvisWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisWorkspaceView.swift"; sourceTree = "<group>"; };
+		C09100000000000000000005 /* JarvisSavedCopiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisSavedCopiesView.swift"; sourceTree = "<group>"; };
+		C09100000000000000000006 /* JarvisAPIClient+Workspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisAPIClient+Workspace.swift"; sourceTree = "<group>"; };
+		C09100000000000000000007 /* JarvisPluginsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisPluginsView.swift"; sourceTree = "<group>"; };
+		C09100000000000000000008 /* JarvisPluginPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisPluginPresentation.swift"; sourceTree = "<group>"; };
+		C09100000000000000000009 /* JarvisPluginCatalogModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisPluginCatalogModels.swift"; sourceTree = "<group>"; };
+		A83700000000000000000001 /* JarvisReplayTaskBarrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayTaskBarrier.swift; sourceTree = SOURCE_ROOT; };
+		A83700000000000000000002 /* JarvisReplayTaskBarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisReplayTaskBarrierTests.swift; sourceTree = SOURCE_ROOT; };
+		A83600000000000000000001 /* JarvisReplayEvidence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayEvidence.swift; sourceTree = SOURCE_ROOT; };
+		A83600000000000000000002 /* JarvisReplayEvidenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisReplayEvidenceTests.swift; sourceTree = SOURCE_ROOT; };
+		A83500000000000000000001 /* JarvisReplayLaunchPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayLaunchPlan.swift; sourceTree = SOURCE_ROOT; };
+		A83500000000000000000002 /* JarvisReplayLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Views/JarvisReplayLaunchView.swift; sourceTree = SOURCE_ROOT; };
+		A83500000000000000000003 /* JarvisReplayIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisReplayIntegrationTests.swift; sourceTree = SOURCE_ROOT; };
+		A83400000000000000000001 /* JarvisReplaySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplaySession.swift; sourceTree = SOURCE_ROOT; };
+		A83400000000000000000002 /* JarvisReplayAudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayAudioDevice.swift; sourceTree = SOURCE_ROOT; };
+		A83400000000000000000003 /* JarvisReplayCaptureSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayCaptureSource.swift; sourceTree = SOURCE_ROOT; };
+		A83400000000000000000004 /* JarvisReplayScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayScope.swift; sourceTree = SOURCE_ROOT; };
+		A83400000000000000000005 /* JarvisReplayAudioAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisReplayAudioAsset.swift; sourceTree = SOURCE_ROOT; };
+		A83400000000000000000006 /* JarvisReplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisReplayTests.swift; sourceTree = SOURCE_ROOT; };
+		A83300000000000000000001 /* JarvisLiveAppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisLiveAppRoute.swift; sourceTree = SOURCE_ROOT; };
+		A83300000000000000000002 /* JarvisLiveAppRouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisLiveAppRouteTests.swift; sourceTree = SOURCE_ROOT; };
+		A83200000000000000000001 /* JarvisLiveMediaSignaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisLiveMediaSignaling.swift; sourceTree = SOURCE_ROOT; };
+		A83200000000000000000002 /* JarvisLiveMediaSignalingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisLiveMediaSignalingTests.swift; sourceTree = SOURCE_ROOT; };
+		A83100000000000000000001 /* JarvisLiveVoiceRouteDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisLiveVoiceRouteDriver.swift; sourceTree = SOURCE_ROOT; };
+		A83100000000000000000002 /* JarvisLiveWebRTCMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisLiveWebRTCMedia.swift; sourceTree = SOURCE_ROOT; };
+		A83100000000000000000003 /* JarvisLiveVoiceRouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisLiveVoiceRouteTests.swift; sourceTree = SOURCE_ROOT; };
+		A83000000000000000000001 /* JarvisVoiceRouteModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Models/JarvisVoiceRouteModels.swift; sourceTree = SOURCE_ROOT; };
+		A83000000000000000000002 /* JarvisVoiceRouteDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/JarvisVoiceRouteDriver.swift; sourceTree = SOURCE_ROOT; };
+		A83000000000000000000003 /* JarvisVoiceRouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/JarvisVoiceRouteTests.swift; sourceTree = SOURCE_ROOT; };
+		A82800000000000000000008 /* JarvisVisualFrameFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisVisualFrameFlow.swift; sourceTree = "<group>"; };
+		A82800000000000000000001 /* JarvisWebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisWebRTCClient.swift; sourceTree = "<group>"; };
+		A82800000000000000000006 /* JarvisDirectAudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisTests/JarvisDirectAudioTests.swift; sourceTree = SOURCE_ROOT; };
+		A75300000000000000000001 /* JarvisPushModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisPushModels.swift; sourceTree = "<group>"; };
+		A75300000000000000000002 /* JarvisPushAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisPushAPIClient.swift; sourceTree = "<group>"; };
+		A75300000000000000000003 /* JarvisPushStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisPushStore.swift; sourceTree = "<group>"; };
+		A75300000000000000000004 /* JarvisNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisNotificationService.swift; sourceTree = "<group>"; };
+		A75300000000000000000005 /* JarvisPushViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisPushViewModel.swift; sourceTree = "<group>"; };
+		A75300000000000000000006 /* JarvisPushSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisPushSettingsView.swift; sourceTree = "<group>"; };
+		A75300000000000000000007 /* Jarvis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jarvis.entitlements; sourceTree = "<group>"; };
+		A75100000000000000000001 /* JarvisWorkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisWorkModels.swift; sourceTree = "<group>"; };
+		A75100000000000000000002 /* JarvisWorkInboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisWorkInboxViewModel.swift; sourceTree = "<group>"; };
+		A75100000000000000000003 /* JarvisWorkInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisWorkInboxView.swift; sourceTree = "<group>"; };
+		F37000000000000000000003 /* JarvisFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisFilesView.swift; sourceTree = "<group>"; };
+		F37000000000000000000002 /* JarvisFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisFilesViewModel.swift; sourceTree = "<group>"; };
+		F37000000000000000000001 /* JarvisFileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisFileModels.swift; sourceTree = "<group>"; };
+		F70000000000000000000001 /* AudioPlaybackLedger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/AudioPlaybackLedger.swift; sourceTree = SOURCE_ROOT; };
+		F60000000000000000000001 /* RealtimeDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jarvis/Services/RealtimeDiagnostics.swift; sourceTree = SOURCE_ROOT; };
+		F60000000000000000000006 /* RealtimeDiagnosticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests/RealtimeDiagnosticsTests.swift; sourceTree = SOURCE_ROOT; };
+		000000000000000000000004 /* Jarvis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jarvis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000017 /* JarvisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisApp.swift; sourceTree = "<group>"; };
+		000000000000000000000018 /* JarvisRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisRootView.swift; sourceTree = "<group>"; };
+		000000000000000000000019 /* JarvisColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisColors.swift; sourceTree = "<group>"; };
+		00000000000000000000001A /* JarvisTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisTypography.swift; sourceTree = "<group>"; };
+		00000000000000000000001B /* JarvisMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisMotion.swift; sourceTree = "<group>"; };
+		00000000000000000000001C /* JarvisComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisComponents.swift; sourceTree = "<group>"; };
+		00000000000000000000001D /* JarvisModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisModels.swift; sourceTree = "<group>"; };
+		00000000000000000000001E /* JarvisAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAPIClient.swift; sourceTree = "<group>"; };
+		00000000000000000000001F /* JarvisSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisSessionStore.swift; sourceTree = "<group>"; };
+		000000000000000000000020 /* JarvisAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAppViewModel.swift; sourceTree = "<group>"; };
+		000000000000000000000021 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		000000000000000000000022 /* SetupTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupTokenView.swift; sourceTree = "<group>"; };
+		000000000000000000000023 /* AmbientCompanionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmbientCompanionView.swift; sourceTree = "<group>"; };
+		000000000000000000000024 /* MemoryRailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryRailView.swift; sourceTree = "<group>"; };
+		000000000000000000000025 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		000000000000000000000026 /* BackendBaseURL.override.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = BackendBaseURL.override.txt; sourceTree = "<group>"; };
+		000000000000000000000027 /* StaticBearerToken.override.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = StaticBearerToken.override.txt; sourceTree = "<group>"; };
+		000000000000000000000028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00000000000000000000003A /* JarvisRealtimeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisRealtimeModels.swift; sourceTree = "<group>"; };
+		00000000000000000000003B /* AudioCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCaptureService.swift; sourceTree = "<group>"; };
+		00000000000000000000003C /* AudioPlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackService.swift; sourceTree = "<group>"; };
+		00000000000000000000003D /* JarvisRealtimeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisRealtimeClient.swift; sourceTree = "<group>"; };
+		00000000000000000000003E /* AudioSegmenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSegmenter.swift; sourceTree = "<group>"; };
+		00000000000000000000003F /* AudioRouteDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRouteDiagnostics.swift; sourceTree = "<group>"; };
+		000000000000000000000040 /* JarvisAudioSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioSessionViewModel.swift; sourceTree = "<group>"; };
+		000000000000000000000048 /* JarvisVisualModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisVisualModels.swift; sourceTree = "<group>"; };
+		000000000000000000000049 /* FrameSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameSampler.swift; sourceTree = "<group>"; };
+		00000000000000000000004A /* RayBanDATService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayBanDATService.swift; sourceTree = "<group>"; };
+		00000000000000000000004B /* GlassesFrameCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesFrameCaptureService.swift; sourceTree = "<group>"; };
+		00000000000000000000004C /* VisualFrameCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualFrameCaptureCoordinator.swift; sourceTree = "<group>"; };
+		000000000000000000000065 /* JarvisVisualIngestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisVisualIngestClient.swift; sourceTree = "<group>"; };
+		000000000000000000000066 /* JarvisReminderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisReminderModels.swift; sourceTree = "<group>"; };
+		000000000000000000000067 /* ReminderInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderInboxView.swift; sourceTree = "<group>"; };
+		00000000000000000000006A /* JarvisCalendarModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisCalendarModels.swift; sourceTree = "<group>"; };
+		00000000000000000000006B /* GoogleCalendarAuthorizationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarAuthorizationSession.swift; sourceTree = "<group>"; };
+		00000000000000000000006F /* JarvisMemoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisMemoryModels.swift; sourceTree = "<group>"; };
+		000000000000000000000071 /* MemoryTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTimelineView.swift; sourceTree = "<group>"; };
+		000000000000000000000073 /* MemoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDetailView.swift; sourceTree = "<group>"; };
+		000000000000000000000075 /* WorkingMemorySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingMemorySummaryView.swift; sourceTree = "<group>"; };
+		C0D500000000000000000001 /* JarvisSandboxModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisSandboxModels.swift"; sourceTree = "<group>"; };
+		C0D500000000000000000002 /* JarvisSandboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisSandboxViewModel.swift"; sourceTree = "<group>"; };
+		C0D500000000000000000003 /* JarvisSandboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JarvisSandboxView.swift"; sourceTree = "<group>"; };
+		C0D500000000000000000004 /* JarvisSandboxViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisSandboxViewTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+        F50000000000000000000022 /* JarvisRealtimeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisRealtimeClientTests.swift; sourceTree = "<group>"; };
+		F50000000000000000000001 /* JarvisAudioProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProvider.swift; sourceTree = "<group>"; };
+		F50000000000000000000003 /* JarvisAudioProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisAudioProviderTests.swift; sourceTree = "<group>"; };
+		F50000000000000000000009 /* JarvisAudioProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JarvisAudioProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000000000007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECA40000000000000000000A /* TensorFlowLiteC in Frameworks */,
+				000000000000000000000062 /* MWDATCore in Frameworks */,
+				A82800000000000000000003 /* WebRTC in Frameworks */,
+				000000000000000000000063 /* MWDATCamera in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C09300000000000000000004 /* JarvisProductIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (C0D500000000000000000004 /* JarvisSandboxViewTests.swift */, C09300000000000000000001 /* JarvisProductCompositionTests.swift */, C10000000000000000000001 /* JarvisConnectedMediaTests.swift */, D11100000000000000000001 /* JarvisNativeAttachmentHostTests.swift */, D11500000000000000000001 /* JarvisConnectedPreferencesHostTests.swift */, D11800000000000000000001, E5A11A000000000000000004,);
+			path = JarvisProductIntegrationTests;
+			sourceTree = "<group>";
+		};
+		000000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A83700000000000000000001 /* JarvisReplayTaskBarrier.swift */,
+				A83700000000000000000002 /* JarvisReplayTaskBarrierTests.swift */,
+				A83600000000000000000001 /* JarvisReplayEvidence.swift */,
+				A83600000000000000000002 /* JarvisReplayEvidenceTests.swift */,
+				A83500000000000000000001 /* JarvisReplayLaunchPlan.swift */,
+				A83500000000000000000002 /* JarvisReplayLaunchView.swift */,
+				A83500000000000000000003 /* JarvisReplayIntegrationTests.swift */,
+				A83400000000000000000001 /* JarvisReplaySession.swift */,
+				A83400000000000000000002 /* JarvisReplayAudioDevice.swift */,
+				A83400000000000000000003 /* JarvisReplayCaptureSource.swift */,
+				A83400000000000000000004 /* JarvisReplayScope.swift */,
+				A83400000000000000000005 /* JarvisReplayAudioAsset.swift */,
+				A83400000000000000000006 /* JarvisReplayTests.swift */,
+				A83300000000000000000001 /* JarvisLiveAppRoute.swift */,
+				A83300000000000000000002 /* JarvisLiveAppRouteTests.swift */,
+				A83200000000000000000001 /* JarvisLiveMediaSignaling.swift */,
+				A83200000000000000000002 /* JarvisLiveMediaSignalingTests.swift */,
+				A83100000000000000000001 /* JarvisLiveVoiceRouteDriver.swift */,
+				A83100000000000000000002 /* JarvisLiveWebRTCMedia.swift */,
+				A83100000000000000000003 /* JarvisLiveVoiceRouteTests.swift */,
+				000000000000000000000006 /* Jarvis */,
+				F5000000000000000000000A /* JarvisAudioProviderTests */,
+				C09300000000000000000004 /* JarvisProductIntegrationTests */,
+				D11000000000000000000004 /* JarvisNavigationUITests */,
+				000000000000000000000005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000004 /* Jarvis.app */,
+				F50000000000000000000009 /* JarvisAudioProviderTests.xctest */,
+				C09300000000000000000003 /* JarvisProductIntegrationTests.xctest */,
+				D11000000000000000000003 /* JarvisNavigationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		000000000000000000000006 /* Jarvis */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000010 /* App */,
+				000000000000000000000011 /* Design */,
+				000000000000000000000012 /* Models */,
+				000000000000000000000013 /* Services */,
+				000000000000000000000014 /* ViewModels */,
+				000000000000000000000015 /* Views */,
+				000000000000000000000016 /* Resources */,
+			);
+			path = Jarvis;
+			sourceTree = "<group>";
+		};
+		000000000000000000000010 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000017 /* JarvisApp.swift */,
+				000000000000000000000018 /* JarvisRootView.swift */,
+				E5A11A000000000000000002 /* JarvisAppLinkPresenter.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		000000000000000000000011 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000019 /* JarvisColors.swift */,
+				00000000000000000000001A /* JarvisTypography.swift */,
+				00000000000000000000001B /* JarvisMotion.swift */,
+				00000000000000000000001C /* JarvisComponents.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		000000000000000000000012 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				283F47299DC9667A40D90EFC /* JarvisResourceSelectionContext.swift */,
+				C0D500000000000000000001 /* JarvisSandboxModels.swift */,
+				C09100000000000000000001 /* JarvisWorkspaceModels.swift */,
+				C09800000000000000000001 /* JarvisMediaFileModels.swift */,
+				C09500000000000000000001 /* JarvisAccountProductModels.swift */,
+				C09100000000000000000008 /* JarvisPluginPresentation.swift */,
+				C09100000000000000000009 /* JarvisPluginCatalogModels.swift */,
+				A83000000000000000000001 /* JarvisVoiceRouteModels.swift */,
+				A75300000000000000000001 /* JarvisPushModels.swift */,
+				00000000000000000000006A /* JarvisCalendarModels.swift */,
+				00000000000000000000006F /* JarvisMemoryModels.swift */,
+				A75100000000000000000001 /* JarvisWorkModels.swift */,
+				F37000000000000000000001 /* JarvisFileModels.swift */,
+				00000000000000000000001D /* JarvisModels.swift */,
+				000000000000000000000066 /* JarvisReminderModels.swift */,
+				00000000000000000000003A /* JarvisRealtimeModels.swift */,
+				F50000000000000000000001 /* JarvisAudioProvider.swift */,
+				000000000000000000000048 /* JarvisVisualModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		000000000000000000000013 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ECA400000000000000000001,
+				ECA400000000000000000002,
+				ECA400000000000000000003,
+				ECA400000000000000000004,
+				ECA400000000000000000006,
+				94AA924F932B4F114DE4204B /* JarvisAPIClient+Recording.swift */,
+				C5DCAADEA3AFE6DD15452F3F /* JarvisAudiovisualThumbnailLoader.swift */,
+				C10400000000000000000001 /* JarvisRecordingVideoSource.swift */,
+				C10500000000000000000001 /* JarvisRecordingTimeline.swift */,
+				C10600000000000000000001 /* JarvisRecordingWriter.swift */,
+				C10700000000000000000001 /* JarvisRecordingMixer.swift */,
+				C10800000000000000000001 /* JarvisRecordingControl.swift */,
+				C10900000000000000000001 /* JarvisRecordingCapture.swift */,
+				C11000000000000000000001 /* JarvisRecordingAudioSource.swift */,
+				ECA100000000000000000001 /* JarvisEchoDSP.c */,
+				ECA200000000000000000001 /* JarvisRecordingEchoDiagnostic.swift */,
+				C11100000000000000000001 /* JarvisRecordingCoordinator.swift */,
+				C11200000000000000000001 /* JarvisRecordingCoordinator+Capture.swift */,
+				C11300000000000000000001 /* JarvisRecordingManifest.swift */,
+				C11400000000000000000001 /* JarvisRecordingPendingStore.swift */,
+				C11500000000000000000001 /* JarvisRecordingTransfers.swift */,
+				C11600000000000000000001 /* JarvisRecordingAppController.swift */,
+				C11700000000000000000001 /* JarvisRecordingTransportTests.swift */,
+				C10300000000000000000006 /* JarvisDuplexAudioRoute.swift */,
+				E81100000000000000000001 /* JarvisMediaStream.swift */,
+				C10300000000000000000001 /* JarvisDuplexAudioDevice.swift */,
+				C10300000000000000000002 /* JarvisDuplexAudioIO.h */,
+				C10300000000000000000003 /* JarvisDuplexAudioIO.m */,
+				C99900000000000000000001 /* JarvisLocationService.swift */,
+				C10200000000000000000001 /* JarvisAPIClient+Plugins.swift */,
+				C10100000000000000000001 /* JarvisSessionFilesClient.swift */,
+				C09100000000000000000002 /* JarvisWorkspaceLocalStore.swift */,
+				C09800000000000000000003 /* JarvisAPIClient+Media.swift */,
+				C09800000000000000000002 /* JarvisVerifiedTemporaryFile.swift */,
+				C09100000000000000000006 /* JarvisAPIClient+Workspace.swift */,
+				A83000000000000000000002 /* JarvisVoiceRouteDriver.swift */,
+				A75300000000000000000002 /* JarvisPushAPIClient.swift */,
+				A75300000000000000000003 /* JarvisPushStore.swift */,
+				A75300000000000000000004 /* JarvisNotificationService.swift */,
+				00000000000000000000006B /* GoogleCalendarAuthorizationSession.swift */,
+				00000000000000000000001E /* JarvisAPIClient.swift */,
+				00000000000000000000001F /* JarvisSessionStore.swift */,
+				00000000000000000000003B /* AudioCaptureService.swift */,
+				00000000000000000000003C /* AudioPlaybackService.swift */,
+				00000000000000000000003D /* JarvisRealtimeClient.swift */,
+				A82800000000000000000001 /* JarvisWebRTCClient.swift */,
+				A82800000000000000000008 /* JarvisVisualFrameFlow.swift */,
+				A82800000000000000000006 /* JarvisDirectAudioTests.swift */,
+				00000000000000000000003E /* AudioSegmenter.swift */,
+				00000000000000000000003F /* AudioRouteDiagnostics.swift */,
+				000000000000000000000049 /* FrameSampler.swift */,
+				00000000000000000000004A /* RayBanDATService.swift */,
+				00000000000000000000004B /* GlassesFrameCaptureService.swift */,
+				00000000000000000000004C /* VisualFrameCaptureCoordinator.swift */,
+				000000000000000000000065 /* JarvisVisualIngestClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		000000000000000000000014 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C10200000000000000000002 /* JarvisPluginsViewModel.swift */,
+				C10100000000000000000002 /* JarvisFileMediaPreviewModel.swift */,
+				C0D500000000000000000002 /* JarvisSandboxViewModel.swift */,
+				C09100000000000000000003 /* JarvisWorkspaceViewModel.swift */,
+				C09800000000000000000004 /* JarvisMediaPreviewViewModel.swift */,
+				C09500000000000000000003 /* JarvisPreferencesViewModel.swift */,
+				A75300000000000000000005 /* JarvisPushViewModel.swift */,
+				000000000000000000000020 /* JarvisAppViewModel.swift */,
+				A75100000000000000000002 /* JarvisWorkInboxViewModel.swift */,
+				F37000000000000000000002 /* JarvisFilesViewModel.swift */,
+				000000000000000000000040 /* JarvisAudioSessionViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		000000000000000000000015 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				461A1D2FCE391F07DAC549D0 /* JarvisAudiovisualView.swift */,
+				C0D500000000000000000003 /* JarvisSandboxView.swift */,
+				C09100000000000000000004 /* JarvisWorkspaceView.swift */,
+				C09100000000000000000005 /* JarvisSavedCopiesView.swift */,
+				C09500000000000000000004 /* JarvisPreferencesView.swift */,
+				C09100000000000000000007 /* JarvisPluginsView.swift */,
+				A75300000000000000000006 /* JarvisPushSettingsView.swift */,
+				000000000000000000000021 /* LaunchView.swift */,
+				000000000000000000000022 /* SetupTokenView.swift */,
+				000000000000000000000023 /* AmbientCompanionView.swift */,
+				000000000000000000000067 /* ReminderInboxView.swift */,
+				000000000000000000000024 /* MemoryRailView.swift */,
+				A75100000000000000000003 /* JarvisWorkInboxView.swift */,
+				F37000000000000000000003 /* JarvisFilesView.swift */,
+				000000000000000000000071 /* MemoryTimelineView.swift */,
+				000000000000000000000073 /* MemoryDetailView.swift */,
+				000000000000000000000075 /* WorkingMemorySummaryView.swift */,
+				000000000000000000000025 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		000000000000000000000016 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ECA400000000000000000005 /* NeuralAEC */,
+				A75300000000000000000007 /* Jarvis.entitlements */,
+				000000000000000000000026 /* BackendBaseURL.override.txt */,
+				000000000000000000000027 /* StaticBearerToken.override.txt */,
+				000000000000000000000028 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+		F5000000000000000000000A /* JarvisAudioProviderTests */ = {
+			isa = PBXGroup;
+			children = (A83000000000000000000003 /* JarvisVoiceRouteTests.swift */, F50000000000000000000003 /* JarvisAudioProviderTests.swift */, F50000000000000000000022 /* JarvisRealtimeClientTests.swift */,);
+			path = JarvisAudioProviderTests;
+			sourceTree = "<group>";
+		};
+
+/* Begin PBXNativeTarget section */
+		C09300000000000000000005 /* JarvisProductIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C09300000000000000000009;
+			buildPhases = (C09300000000000000000006, C09300000000000000000007,);
+			buildRules = ();
+			dependencies = (C0930000000000000000000D,);
+			name = JarvisProductIntegrationTests;
+			productName = JarvisProductIntegrationTests;
+			productReference = C09300000000000000000003;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		000000000000000000000003 /* Jarvis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00000000000000000000000B /* Build configuration list for PBXNativeTarget "Jarvis" */;
+			buildPhases = (
+				000000000000000000000008 /* Sources */,
+				000000000000000000000007 /* Frameworks */,
+				000000000000000000000009 /* Resources */,
+				F00000000000000000000001 /* Inject Jarvis Debug Configuration */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Jarvis;
+			packageProductDependencies = (
+				000000000000000000000060 /* MWDATCore */,
+				A82800000000000000000005 /* WebRTC */,
+				000000000000000000000061 /* MWDATCamera */,
+			);
+			productName = Jarvis;
+			productReference = 000000000000000000000004 /* Jarvis.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+		F5000000000000000000000B /* JarvisAudioProviderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F50000000000000000000011 /* Test configurations */;
+			buildPhases = (F5000000000000000000000C /* Test sources */, F5000000000000000000000D /* Test frameworks */,);
+			buildRules = ();
+			dependencies = ();
+			name = JarvisAudioProviderTests;
+			packageProductDependencies = (A82800000000000000000005 /* WebRTC */,);
+			productName = JarvisAudioProviderTests;
+			productReference = F50000000000000000000009 /* JarvisAudioProviderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+
+/* Begin PBXProject section */
+		000000000000000000000002 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					D11000000000000000000005 = {CreatedOnToolsVersion = 27.1; TestTargetID = 000000000000000000000003; };
+					C09300000000000000000005 = {CreatedOnToolsVersion = 27.1; TestTargetID = 000000000000000000000003; };
+					000000000000000000000003 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+				};
+			};
+			buildConfigurationList = 00000000000000000000000A /* Build configuration list for PBXProject "Jarvis" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000001;
+			packageReferences = (
+				00000000000000000000005F /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */,
+				A82800000000000000000004 /* XCRemoteSwiftPackageReference "WebRTC" */,
+			);
+			productRefGroup = 000000000000000000000005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				000000000000000000000003 /* Jarvis */,
+				F5000000000000000000000B /* JarvisAudioProviderTests */,
+				C09300000000000000000005 /* JarvisProductIntegrationTests */,
+				D11000000000000000000005 /* JarvisNavigationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECA400000000000000000009 /* NeuralAEC in Resources */,
+				000000000000000000000038 /* BackendBaseURL.override.txt in Resources */,
+				000000000000000000000039 /* StaticBearerToken.override.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F00000000000000000000001 /* Inject Jarvis Debug Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Inject Jarvis Debug Configuration";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nOUTPUT_DIR=\"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nBACKEND_OUTPUT=\"$OUTPUT_DIR/BackendBaseURL.override.txt\"\nTOKEN_OUTPUT=\"$OUTPUT_DIR/StaticBearerToken.override.txt\"\nDEV_CONFIG=\"$SRCROOT/../../.jarvis-dev/ios-overrides.env\"\n\nmkdir -p \"$OUTPUT_DIR\"\n: > \"$BACKEND_OUTPUT\"\n: > \"$TOKEN_OUTPUT\"\n\nif [ \"$CONFIGURATION\" != \"Debug\" ] || [ ! -f \"$DEV_CONFIG\" ]; then\n  exit 0\nfi\n\nBACKEND_BASE_URL=$(sed -n 's/^BACKEND_BASE_URL=//p' \"$DEV_CONFIG\" | tail -n 1)\nSTATIC_BEARER_TOKEN=$(sed -n 's/^STATIC_BEARER_TOKEN=//p' \"$DEV_CONFIG\" | tail -n 1)\n\nif [ -z \"$BACKEND_BASE_URL\" ] || [ -z \"$STATIC_BEARER_TOKEN\" ]; then\n  echo \"Jarvis Debug configuration is incomplete. Run scripts/dev-setup.sh again.\" >&2\n  exit 1\nfi\n\nprintf '%s\\n' \"$BACKEND_BASE_URL\" > \"$BACKEND_OUTPUT\"\nprintf '%s\\n' \"$STATIC_BEARER_TOKEN\" > \"$TOKEN_OUTPUT\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000000000008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECA400000000000000000007 /* Neural recording bridge in Sources */,
+				ECA400000000000000000008 /* Neural recording adapter in Sources */,
+				201F4EE9E6579DDB0A2FBA11 /* JarvisAPIClient+Recording.swift in Sources */,
+				2B0E67C22332D629FA6F786D /* JarvisAudiovisualView.swift in Sources */,
+				C0209A43066748ACA04306E4 /* JarvisAudiovisualThumbnailLoader.swift in Sources */,
+				CE8FC4EC22C899EB03FFC855 /* JarvisResourceSelectionContext.swift in Sources */,
+				C10400000000000000000002 /* JarvisRecordingVideoSource.swift in Sources */,
+				C10500000000000000000002 /* JarvisRecordingTimeline.swift in Sources */,
+				C10600000000000000000002 /* JarvisRecordingWriter.swift in Sources */,
+				C10700000000000000000002 /* JarvisRecordingMixer.swift in Sources */,
+				C10800000000000000000002 /* JarvisRecordingControl.swift in Sources */,
+				C10900000000000000000002 /* JarvisRecordingCapture.swift in Sources */,
+				C11000000000000000000002 /* JarvisRecordingAudioSource.swift in Sources */,
+				ECA100000000000000000002 /* JarvisEchoDSP.c in Sources */,
+				ECA200000000000000000002 /* JarvisRecordingEchoDiagnostic.swift in Sources */,
+				C11100000000000000000002 /* JarvisRecordingCoordinator.swift in Sources */,
+				C11200000000000000000002 /* JarvisRecordingCoordinator+Capture.swift in Sources */,
+				C11300000000000000000002 /* JarvisRecordingManifest.swift in Sources */,
+				C11400000000000000000002 /* JarvisRecordingPendingStore.swift in Sources */,
+				C11500000000000000000002 /* JarvisRecordingTransfers.swift in Sources */,
+				C11600000000000000000002 /* JarvisRecordingAppController.swift in Sources */,
+				C10300000000000000000007 /* JarvisDuplexAudioRoute.swift in Sources */,
+				E81100000000000000000002 /* JarvisMediaStream.swift in Sources */,
+				C10300000000000000000004 /* JarvisDuplexAudioDevice.swift in Sources */,
+				D0A011000000000000000002 /* JarvisDuplexLifecycleProbe.swift in Sources */,
+				C10300000000000000000005 /* JarvisDuplexAudioIO.m in Sources */,
+				C99900000000000000000002 /* JarvisLocationService.swift in Sources */,
+				C10200000000000000000003 /* JarvisAPIClient+Plugins.swift in Sources */,
+				C10200000000000000000004 /* JarvisPluginsViewModel.swift in Sources */,
+				C10100000000000000000003 /* JarvisSessionFilesClient.swift in Sources */,
+				C10100000000000000000004 /* JarvisFileMediaPreviewModel.swift in Sources */,
+				C0D600000000000000000001 /* JarvisSandboxModels.swift in Sources */,
+				C09200000000000000000001 /* JarvisWorkspaceModels.swift in Sources */,
+				C09900000000000000000004 /* JarvisMediaPreviewViewModel.swift in Sources */,
+				C09900000000000000000003 /* JarvisAPIClient+Media.swift in Sources */,
+				C09900000000000000000002 /* JarvisVerifiedTemporaryFile.swift in Sources */,
+				C09900000000000000000001 /* JarvisMediaFileModels.swift in Sources */,
+				C09600000000000000000001 /* JarvisAccountProductModels.swift in Sources */,
+				C09200000000000000000002 /* JarvisWorkspaceLocalStore.swift in Sources */,
+				C0D600000000000000000002 /* JarvisSandboxViewModel.swift in Sources */,
+				C09200000000000000000003 /* JarvisWorkspaceViewModel.swift in Sources */,
+				C09600000000000000000003 /* JarvisPreferencesViewModel.swift in Sources */,
+				C0D600000000000000000003 /* JarvisSandboxView.swift in Sources */,
+				C09200000000000000000004 /* JarvisWorkspaceView.swift in Sources */,
+				C09200000000000000000005 /* JarvisSavedCopiesView.swift in Sources */,
+				C09600000000000000000004 /* JarvisPreferencesView.swift in Sources */,
+				C09200000000000000000006 /* JarvisAPIClient+Workspace.swift in Sources */,
+				C09200000000000000000007 /* JarvisPluginsView.swift in Sources */,
+				C09200000000000000000008 /* JarvisPluginPresentation.swift in Sources */,
+				C09200000000000000000009 /* JarvisPluginCatalogModels.swift in Sources */,
+				A83700000000000000000003 /* JarvisReplayTaskBarrier.swift in Sources */,
+				A83600000000000000000015 /* JarvisReplayEvidence.swift in Sources */,
+				A83500000000000000000015 /* JarvisReplayLaunchPlan.swift in Sources */,
+				A83500000000000000000016 /* JarvisReplayLaunchView.swift in Sources */,
+				A83400000000000000000015 /* JarvisReplaySession.swift in Sources */,
+				A83400000000000000000016 /* JarvisReplayAudioDevice.swift in Sources */,
+				A83400000000000000000017 /* JarvisReplayCaptureSource.swift in Sources */,
+				A83400000000000000000018 /* JarvisReplayScope.swift in Sources */,
+				A83400000000000000000019 /* JarvisReplayAudioAsset.swift in Sources */,
+				A83300000000000000000003 /* JarvisLiveAppRoute.swift in Sources */,
+				A83200000000000000000003 /* JarvisLiveMediaSignaling.swift in Sources */,
+				A83100000000000000000004 /* JarvisLiveVoiceRouteDriver.swift in Sources */,
+				A83100000000000000000005 /* JarvisLiveWebRTCMedia.swift in Sources */,
+				A83000000000000000000004 /* JarvisVoiceRouteModels.swift in Sources */,
+				A83000000000000000000005 /* JarvisVoiceRouteDriver.swift in Sources */,
+				A75310000000000000000001 /* JarvisPushModels.swift in Sources */,
+				A75310000000000000000002 /* JarvisPushAPIClient.swift in Sources */,
+				A75310000000000000000003 /* JarvisPushStore.swift in Sources */,
+				A75310000000000000000004 /* JarvisNotificationService.swift in Sources */,
+				A75310000000000000000005 /* JarvisPushViewModel.swift in Sources */,
+				A75310000000000000000006 /* JarvisPushSettingsView.swift in Sources */,
+				A75200000000000000000001 /* JarvisWorkModels.swift in Sources */,
+				A75200000000000000000002 /* JarvisWorkInboxViewModel.swift in Sources */,
+				A75200000000000000000003 /* JarvisWorkInboxView.swift in Sources */,
+				F37100000000000000000003 /* JarvisFilesView.swift in Sources */,
+				F37100000000000000000002 /* JarvisFilesViewModel.swift in Sources */,
+				F37100000000000000000001 /* JarvisFileModels.swift in Sources */,
+				00000000000000000000006C /* JarvisCalendarModels.swift in Sources */,
+				00000000000000000000006D /* GoogleCalendarAuthorizationSession.swift in Sources */,
+				00000000000000000000006E /* JarvisMemoryModels.swift in Sources */,
+				000000000000000000000070 /* MemoryTimelineView.swift in Sources */,
+				000000000000000000000072 /* MemoryDetailView.swift in Sources */,
+				000000000000000000000074 /* WorkingMemorySummaryView.swift in Sources */,
+				000000000000000000000029 /* JarvisApp.swift in Sources */,
+				00000000000000000000002A /* JarvisRootView.swift in Sources */,
+				E5A11A000000000000000001 /* JarvisAppLinkPresenter.swift in Sources */,
+				00000000000000000000002B /* JarvisColors.swift in Sources */,
+				00000000000000000000002C /* JarvisTypography.swift in Sources */,
+				00000000000000000000002D /* JarvisMotion.swift in Sources */,
+				00000000000000000000002E /* JarvisComponents.swift in Sources */,
+				00000000000000000000002F /* JarvisModels.swift in Sources */,
+				000000000000000000000068 /* JarvisReminderModels.swift in Sources */,
+				000000000000000000000030 /* JarvisAPIClient.swift in Sources */,
+				000000000000000000000031 /* JarvisSessionStore.swift in Sources */,
+				000000000000000000000032 /* JarvisAppViewModel.swift in Sources */,
+				000000000000000000000033 /* LaunchView.swift in Sources */,
+				000000000000000000000034 /* SetupTokenView.swift in Sources */,
+				000000000000000000000035 /* AmbientCompanionView.swift in Sources */,
+				000000000000000000000069 /* ReminderInboxView.swift in Sources */,
+				000000000000000000000036 /* MemoryRailView.swift in Sources */,
+				000000000000000000000037 /* SettingsView.swift in Sources */,
+				000000000000000000000041 /* JarvisRealtimeModels.swift in Sources */,
+				F50000000000000000000002 /* JarvisAudioProvider.swift in Sources */,
+				000000000000000000000042 /* AudioCaptureService.swift in Sources */,
+				000000000000000000000043 /* AudioPlaybackService.swift in Sources */,
+				F60000000000000000000002 /* RealtimeDiagnostics.swift in Sources */,
+				F70000000000000000000002 /* AudioPlaybackLedger.swift in Sources */,
+				000000000000000000000044 /* JarvisRealtimeClient.swift in Sources */,
+				A82800000000000000000002 /* JarvisWebRTCClient.swift in Sources */,
+				A82800000000000000000009 /* JarvisVisualFrameFlow.swift in Sources */,
+				000000000000000000000045 /* AudioSegmenter.swift in Sources */,
+				000000000000000000000046 /* AudioRouteDiagnostics.swift in Sources */,
+				000000000000000000000047 /* JarvisAudioSessionViewModel.swift in Sources */,
+				00000000000000000000004D /* JarvisVisualModels.swift in Sources */,
+				00000000000000000000004E /* FrameSampler.swift in Sources */,
+				00000000000000000000004F /* RayBanDATService.swift in Sources */,
+				000000000000000000000050 /* GlassesFrameCaptureService.swift in Sources */,
+				000000000000000000000051 /* VisualFrameCaptureCoordinator.swift in Sources */,
+				000000000000000000000064 /* JarvisVisualIngestClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+		F5000000000000000000000C /* Test sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (C11000000000000000000003, E81100000000000000000003, C10800000000000000000003, C10300000000000000000008, C10300000000000000000009, C1030000000000000000000A, A83700000000000000000004, A83700000000000000000005, A83600000000000000000029, A8360000000000000000002A, A83500000000000000000029, A8350000000000000000002B, A83500000000000000000032, A83400000000000000000029, A8340000000000000000002A, A8340000000000000000002C, A8340000000000000000002D, A8340000000000000000002E, A83300000000000000000004, A83300000000000000000005, A83200000000000000000004, A83200000000000000000005, A83100000000000000000006, A83100000000000000000007, A83100000000000000000008, A83000000000000000000006, A83000000000000000000007, A83000000000000000000008, A8280000000000000000000A, A82800000000000000000007, F50000000000000000000004, F50000000000000000000005, F50000000000000000000006, F50000000000000000000007, F50000000000000000000008, F50000000000000000000020, F50000000000000000000021, F60000000000000000000003, F60000000000000000000004, F60000000000000000000005, F70000000000000000000003,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5000000000000000000000D /* Test frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (A83100000000000000000009 /* WebRTC in Test Frameworks */,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+/* Begin XCBuildConfiguration section */
+		C0930000000000000000000A /* Product integration Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis.product-integration-tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jarvis.app/Jarvis";
+			};
+			name = Debug;
+		};
+		C0930000000000000000000B /* Product integration Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis.product-integration-tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jarvis.app/Jarvis";
+			};
+			name = Release;
+		};
+		00000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		00000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		00000000000000000000000E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = ("$(inherited)", "-ObjC", "-framework", Accelerate, "-lz", "-lc++",);
+				SWIFT_OBJC_BRIDGING_HEADER = "Jarvis/Services/JarvisDuplexAudio-Bridging-Header.h";
+				CODE_SIGN_ENTITLEMENTS = Jarvis/Resources/Jarvis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 9CH836GT3U;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Jarvis/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		00000000000000000000000F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = ("$(inherited)", "-ObjC", "-framework", Accelerate, "-lz", "-lc++",);
+				SWIFT_OBJC_BRIDGING_HEADER = "Jarvis/Services/JarvisDuplexAudio-Bridging-Header.h";
+				CODE_SIGN_ENTITLEMENTS = Jarvis/Resources/Jarvis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 9CH836GT3U;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Jarvis/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+		F5000000000000000000000F /* Test Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SWIFT_OBJC_BRIDGING_HEADER = "Jarvis/Services/JarvisDuplexAudio-Bridging-Header.h";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@loader_path/Frameworks", "@executable_path/Frameworks",);
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis.provider-tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F50000000000000000000010 /* Test Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SWIFT_OBJC_BRIDGING_HEADER = "Jarvis/Services/JarvisDuplexAudio-Bridging-Header.h";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@loader_path/Frameworks", "@executable_path/Frameworks",);
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis.provider-tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+
+/* Begin XCConfigurationList section */
+		C09300000000000000000009 /* Product integration configurations */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (C0930000000000000000000A, C0930000000000000000000B,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		00000000000000000000000A /* Build configuration list for PBXProject "Jarvis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00000000000000000000000C /* Debug */,
+				00000000000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00000000000000000000000B /* Build configuration list for PBXNativeTarget "Jarvis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00000000000000000000000E /* Debug */,
+				00000000000000000000000F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+		C09300000000000000000006 /* Product integration sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (C0D600000000000000000004, C11700000000000000000002, C09300000000000000000002, C10000000000000000000002, D11100000000000000000002, D11500000000000000000002, D11800000000000000000002, E5A11A000000000000000003,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C09300000000000000000007 /* Product integration frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0930000000000000000000C /* App test host proxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000002;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000000000003;
+			remoteInfo = Jarvis;
+		};
+		C0930000000000000000000D /* App test host dependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000000000003;
+			targetProxy = C0930000000000000000000C;
+		};
+		F50000000000000000000011 /* Test configurations */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F5000000000000000000000F /* Test Debug */, F50000000000000000000010 /* Test Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+
+		D11000000000000000000001 /* JarvisNavigationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisNavigationUITests.swift; sourceTree = "<group>"; };
+		D11000000000000000000002 /* JarvisNavigationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11000000000000000000001; };
+		D11000000000000000000003 /* JarvisNavigationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JarvisNavigationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D11000000000000000000004 /* JarvisNavigationUITests */ = {isa = PBXGroup; children = (D11000000000000000000001, D11200000000000000000001, D11300000000000000000001, D11400000000000000000001, D11900000000000000000001,); path = JarvisNavigationUITests; sourceTree = "<group>"; };
+		D11000000000000000000005 /* JarvisNavigationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D11000000000000000000009;
+			buildPhases = (D11000000000000000000006, D11000000000000000000007,);
+			buildRules = ();
+			dependencies = (D1100000000000000000000D,);
+			name = JarvisNavigationUITests;
+			productName = JarvisNavigationUITests;
+			productReference = D11000000000000000000003;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D11000000000000000000006 /* Native navigation sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (D11000000000000000000002, D11200000000000000000002, D11300000000000000000002, D11400000000000000000002, D11900000000000000000002,); runOnlyForDeploymentPostprocessing = 0; };
+		D11000000000000000000007 /* Native navigation frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		D11000000000000000000009 /* Native navigation configurations */ = {isa = XCConfigurationList; buildConfigurations = (D1100000000000000000000A, D1100000000000000000000B,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		D1100000000000000000000A /* Native navigation Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis.navigation-ui-tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphonesimulator;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Jarvis;
+			};
+			name = Debug;
+		};
+		D1100000000000000000000B /* Native navigation Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks",);
+				PRODUCT_BUNDLE_IDENTIFIER = com.symbiote.jarvis.navigation-ui-tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphonesimulator;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Jarvis;
+			};
+			name = Release;
+		};
+		D1100000000000000000000C /* UI tested app proxy */ = {isa = PBXContainerItemProxy; containerPortal = 000000000000000000000002; proxyType = 1; remoteGlobalIDString = 000000000000000000000003; remoteInfo = Jarvis; };
+		D1100000000000000000000D /* UI tested app dependency */ = {isa = PBXTargetDependency; target = 000000000000000000000003; targetProxy = D1100000000000000000000C; };
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A82800000000000000000004 /* XCRemoteSwiftPackageReference "WebRTC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stasel/WebRTC.git";
+			requirement = {kind = exactVersion; version = 156.0.0; };
+		};
+		00000000000000000000005F /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/meta-wearables-dat-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A82800000000000000000005 /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A82800000000000000000004 /* XCRemoteSwiftPackageReference "WebRTC" */;
+			productName = WebRTC;
+		};
+		000000000000000000000060 /* MWDATCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00000000000000000000005F /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATCore;
+		};
+		000000000000000000000061 /* MWDATCamera */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00000000000000000000005F /* XCRemoteSwiftPackageReference "meta-wearables-dat-ios" */;
+			productName = MWDATCamera;
+		};
+/* End XCSwiftPackageProductDependency section */
+		D11100000000000000000001 /* JarvisNativeAttachmentHostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisNativeAttachmentHostTests.swift; sourceTree = "<group>"; };
+		D11100000000000000000002 /* JarvisNativeAttachmentHostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11100000000000000000001; };
+
+		D11200000000000000000001 /* JarvisNativeAttachmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisNativeAttachmentUITests.swift; sourceTree = "<group>"; };
+		D11200000000000000000002 /* JarvisNativeAttachmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11200000000000000000001; };
+
+		D11300000000000000000001 /* JarvisConnectedMediaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisConnectedMediaUITests.swift; sourceTree = "<group>"; };
+		D11300000000000000000002 /* JarvisConnectedMediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11300000000000000000001; };
+
+		D11400000000000000000001 /* JarvisConnectedPreferencesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisConnectedPreferencesUITests.swift; sourceTree = "<group>"; };
+		D11400000000000000000002 /* JarvisConnectedPreferencesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11400000000000000000001; };
+
+		D11500000000000000000001 /* JarvisConnectedPreferencesHostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisConnectedPreferencesHostTests.swift; sourceTree = "<group>"; };
+		D11500000000000000000002 /* JarvisConnectedPreferencesHostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11500000000000000000001; };
+
+		D11800000000000000000001 /* JarvisManagedPlaybackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisManagedPlaybackTests.swift; sourceTree = "<group>"; };
+		D11800000000000000000002 /* JarvisManagedPlaybackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11800000000000000000001; };
+
+		D11900000000000000000001 /* JarvisManagedPlaybackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarvisManagedPlaybackUITests.swift; sourceTree = "<group>"; };
+		D11900000000000000000002 /* JarvisManagedPlaybackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11900000000000000000001; };
+
+	};
+	rootObject = 000000000000000000000002 /* Project object */;
+}

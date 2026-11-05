@@ -1,0 +1,52 @@
+# Explicit separate worker. Does not enable API intake or select live memory.
+services:
+  jarvis-frontier:
+    build:
+      context: ..
+      dockerfile: deployment/hermes/Dockerfile
+    image: jarvis-frontier:hermes-0.19.0
+    environment:
+      APP_ENV: production
+      JARVIS_OWNER_ID: ${JARVIS_FRONTIER_OWNER_ID:?Set the exact Jarvis owner}
+      JARVIS_FRONTIER_DB_URL_FILE: /run/secrets/jarvis_database_url
+      JARVIS_FRONTIER_OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
+      SECOND_BRAIN_ENABLED: "true"
+      SECOND_BRAIN_TASKS_ENABLED: "true"
+      SECOND_BRAIN_FRONTIER_ENABLED: "true"
+      SECOND_BRAIN_FRONTIER_MODEL: ${JARVIS_FRONTIER_MODEL:-gpt-5.6-sol}
+      SECOND_BRAIN_FRONTIER_REASONING_EFFORT: ${JARVIS_FRONTIER_REASONING_EFFORT:-medium}
+      SECOND_BRAIN_WORKER_HOST_ID: ${JARVIS_FRONTIER_HOST_ID:?Set a stable identity for this state volume}
+      SECOND_BRAIN_KNOWLEDGE_ENABLED: "false"
+    secrets:
+      - jarvis_database_url
+      - openai_api_key
+    volumes:
+      - frontier-state:/var/lib/jarvis/hermes
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+    mem_limit: 2g
+    cpus: 2
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=256m
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD","python","-m","app.tasks.worker","check"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+secrets:
+  jarvis_database_url:
+    file: ${JARVIS_FRONTIER_SECRET_DIR:?Set a private absolute secrets directory}/database-url
+  openai_api_key:
+    file: ${JARVIS_FRONTIER_SECRET_DIR:?Set a private absolute secrets directory}/openai-api-key
+volumes:
+  frontier-state:

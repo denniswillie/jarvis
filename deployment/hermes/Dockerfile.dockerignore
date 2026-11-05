@@ -1,0 +1,11 @@
+**
+!backend/
+!backend/pyproject.toml
+!backend/app/
+!backend/app/**
+!deployment/
+!deployment/hermes/
+!deployment/hermes/requirements.txt
+**/__pycache__/
+**/*.pyc
+**/.env*

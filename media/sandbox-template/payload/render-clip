@@ -1,0 +1,11 @@
+#!/bin/sh
+# Existing task owner must bound/stop this whole process tree, not just frames.
+set -eu
+test "$(/usr/bin/id -u)" != 0 || { echo 'renderer_requires_unprivileged_user' >&2; exit 2; }
+test "$#" = 4 || { echo 'expected_input_staging_work_output' >&2; exit 2; }
+/usr/bin/python3 /opt/jarvis-render/inventory.py --verify
+exec /usr/bin/env -i PATH=/opt/jarvis-render/node/bin:/usr/bin:/bin HOME=/home/jarvis USER=jarvis LOGNAME=jarvis TMPDIR=/tmp \
+  /opt/jarvis-render/node/bin/node /opt/jarvis-render/clip/scripts/render.mjs \
+  --input "$1" --staging-dir "$2" --work-dir "$3" --output "$4" \
+  --browser /opt/jarvis-render/chrome/chrome-linux64/chrome \
+  --binaries-dir /opt/jarvis-render/clip/node_modules/@remotion/compositor-linux-x64-gnu

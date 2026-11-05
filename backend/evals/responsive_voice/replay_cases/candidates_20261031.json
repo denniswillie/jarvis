@@ -1,0 +1,349 @@
+{
+  "format": "jarvis.pov.curation_candidates.v1",
+  "status": "proposed_not_a_frozen_replay_manifest",
+  "researched_at": "2026-10-31",
+  "local_inventory": {
+    "scope": [
+      ".jarvis-dev (bounded metadata inventory, virtual environments excluded)",
+      "backend/evals (bounded artifact metadata inventory)"
+    ],
+    "real_user_recordings_identified": 0,
+    "synthetic_fixture_manifest": "backend/evals/perception_memory/fixtures/manifest.json",
+    "synthetic_frames_count": 11,
+    "note": "Generated Pillow fixtures are not real POV-video acceptance. No Supabase/media-library/home/chat scan performed."
+  },
+  "rights": {
+    "copyright_license": "CC-BY-4.0",
+    "copyright_license_status": "evidenced_by_publisher_license_and_dataset_metadata",
+    "license_terms_url": "https://creativecommons.org/licenses/by/4.0/",
+    "local_evaluation": "copyright_permission_evidenced_subject_to_attribution_and_other_rights",
+    "hosted_inference": "unresolved_until_clip_privacy_review_and_provider_processing_terms_check",
+    "derived_frame_storage": "copyright_permission_evidenced_subject_to_attribution_changes_notice_and_privacy_review",
+    "public_demo": "unresolved_until_clip_privacy_review_and_attribution_changes_notice_prepared",
+    "conditions": [
+      "Credit Diffraction, sample title, dataset URL and pinned revision; link CC BY 4.0 and identify cropping/resizing/other changes.",
+      "Copyright reuse includes commercial purposes, but does not independently clear privacy/publicity or third-party rights.",
+      "Publisher ownership/authorization statements are evidence, not an independent release audit.",
+      "No credential/license acceptance needed for observed anonymous metadata/HEAD access; no media GET was attempted."
+    ]
+  },
+  "sources": [
+    {
+      "id": "egocentric-kitchen-sample",
+      "publisher": "Diffraction",
+      "revision": "75ccd3fc9fbb78be56029539ab1ebf9fb1f3e2f4",
+      "card_url": "https://huggingface.co/datasets/diffracting/egocentric-kitchen-sample",
+      "metadata_url": "https://huggingface.co/datasets/diffracting/egocentric-kitchen-sample/raw/75ccd3fc9fbb78be56029539ab1ebf9fb1f3e2f4/dataset.json",
+      "license_url": "https://huggingface.co/datasets/diffracting/egocentric-kitchen-sample/blob/75ccd3fc9fbb78be56029539ab1ebf9fb1f3e2f4/LICENSE",
+      "attribution_title": "Egocentric Kitchen Capture Sample (2026)",
+      "viewpoint": "Publisher-described egocentric iPhone capture; mounting details unresolved, not glasses-equivalent",
+      "grouping": "kitchen_capture_group_unverified",
+      "limits": [
+        "Closely related tasks; independent session/participant identities unresolved.",
+        "No independently reviewed event boundaries or completion labels."
+      ]
+    },
+    {
+      "id": "egocentric-maintenance-sample",
+      "publisher": "Diffraction",
+      "revision": "acd7da07ca85bf16c99c61edf656515fa9d2b9c4",
+      "card_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample",
+      "metadata_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/raw/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/dataset.json",
+      "license_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/blob/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/LICENSE",
+      "attribution_title": "Egocentric Maintenance Sample (2026)",
+      "viewpoint": "Publisher-described chest-mounted iPhone; not head/glasses-equivalent",
+      "grouping": "maintenance-session-001",
+      "limits": [
+        "Six excerpts from one apparent session, not six independent trials.",
+        "Audio absent; annotation intervals approximate and not independently human-validated.",
+        "Published clips are tone-mapped derivatives; do not use overlay/preview videos as native input."
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "case_id": "diffraction-onion-preparation",
+      "source_id": "egocentric-kitchen-sample",
+      "video_path": "videos/onion-preparation.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-kitchen-sample/resolve/75ccd3fc9fbb78be56029539ab1ebf9fb1f3e2f4/videos/onion-preparation.mp4",
+      "duration_seconds": 75.733333,
+      "proposed_clip_window_seconds": [
+        0,
+        75.733333
+      ],
+      "width": 1920,
+      "height": 1440,
+      "nominal_fps": 59.9868,
+      "frame_count": 4543,
+      "publisher_video_sha256": "7279f0d51cfc9ea5d01088aaa45a1777036da8300f0316462befad9a25bdbcab",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Onion preparation",
+      "proposed_evaluation": "Ingredient/tool tracking versus general activity description.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-pepper-slicing",
+      "source_id": "egocentric-kitchen-sample",
+      "video_path": "videos/pepper-slicing.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-kitchen-sample/resolve/75ccd3fc9fbb78be56029539ab1ebf9fb1f3e2f4/videos/pepper-slicing.mp4",
+      "duration_seconds": 57.75,
+      "proposed_clip_window_seconds": [
+        0,
+        57.75
+      ],
+      "width": 1920,
+      "height": 1440,
+      "nominal_fps": 60,
+      "frame_count": 3465,
+      "publisher_video_sha256": "8a7efeadc9a2bd2cdac97c7f55df35ef6cb144b64c98d707251f5caae168f1da",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Pepper slicing",
+      "proposed_evaluation": "Fine manipulation and visibility uncertainty.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-pepper-dicing",
+      "source_id": "egocentric-kitchen-sample",
+      "video_path": "videos/pepper-dicing.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-kitchen-sample/resolve/75ccd3fc9fbb78be56029539ab1ebf9fb1f3e2f4/videos/pepper-dicing.mp4",
+      "duration_seconds": 34.366667,
+      "proposed_clip_window_seconds": [
+        0,
+        34.366667
+      ],
+      "width": 1920,
+      "height": 1440,
+      "nominal_fps": 60,
+      "frame_count": 2062,
+      "publisher_video_sha256": "e164e7b06fa2f73e41f87eba48f59ef9b808a9b99516a9a02e6cda3afcf7558b",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Pepper dicing",
+      "proposed_evaluation": "Distinguish related preparation activities without inferring completion.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-remove-tape",
+      "source_id": "egocentric-maintenance-sample",
+      "video_path": "videos/remove-tape.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/resolve/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/videos/remove-tape.mp4",
+      "duration_seconds": 28.983333,
+      "proposed_clip_window_seconds": [
+        0,
+        28.983333
+      ],
+      "width": 1920,
+      "height": 1080,
+      "nominal_fps": 30.0173,
+      "frame_count": 870,
+      "publisher_video_sha256": "7097380a0de1742f4068ec0ca4a2e09870aa69618f238570e0d749b8386e9f64",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Tape removal",
+      "proposed_evaluation": "Track manipulated material; do not claim all residue removed.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-brush-front-grille",
+      "source_id": "egocentric-maintenance-sample",
+      "video_path": "videos/brush-front-grille.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/resolve/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/videos/brush-front-grille.mp4",
+      "duration_seconds": 29.951667,
+      "proposed_clip_window_seconds": [
+        0,
+        29.951667
+      ],
+      "width": 1920,
+      "height": 1080,
+      "nominal_fps": 30.015,
+      "frame_count": 899,
+      "publisher_video_sha256": "0d0fcd9009cb344dc4e1a587ade9cbd5e1aeefac3b216ddec9d2398b2f522299",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Grille brushing",
+      "proposed_evaluation": "Identify tool and work surface under occlusion.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-brush-housing",
+      "source_id": "egocentric-maintenance-sample",
+      "video_path": "videos/brush-housing.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/resolve/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/videos/brush-housing.mp4",
+      "duration_seconds": 29.983333,
+      "proposed_clip_window_seconds": [
+        0,
+        29.983333
+      ],
+      "width": 1920,
+      "height": 1080,
+      "nominal_fps": 30.0167,
+      "frame_count": 900,
+      "publisher_video_sha256": "17f3619499912615bdea40b8c10b6b72937c4fa4ddf880630e49bb248235f4f9",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Housing brushing",
+      "proposed_evaluation": "Candidate preparation-to-use transition; timing unreviewed.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-brush-panel-channels",
+      "source_id": "egocentric-maintenance-sample",
+      "video_path": "videos/brush-panel-channels.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/resolve/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/videos/brush-panel-channels.mp4",
+      "duration_seconds": 29.985,
+      "proposed_clip_window_seconds": [
+        0,
+        29.985
+      ],
+      "width": 1920,
+      "height": 1080,
+      "nominal_fps": 30.015,
+      "frame_count": 900,
+      "publisher_video_sha256": "e8bb3d86e53dfd6826d0b34b09d7131f59b1cbd66e0021b948267de85b925ee5",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Panel-channel brushing",
+      "proposed_evaluation": "Detached-part handling versus appliance completion.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-wipe-panel",
+      "source_id": "egocentric-maintenance-sample",
+      "video_path": "videos/wipe-panel.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/resolve/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/videos/wipe-panel.mp4",
+      "duration_seconds": 29.983333,
+      "proposed_clip_window_seconds": [
+        0,
+        29.983333
+      ],
+      "width": 1920,
+      "height": 1080,
+      "nominal_fps": 30.0167,
+      "frame_count": 900,
+      "publisher_video_sha256": "c55fb0f1dbe59f6494abcd40d4cafddcdd0242884c1a08d3c5d2391fd60cb7bf",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Panel wiping",
+      "proposed_evaluation": "Differentiate wiping from brushing under a changed brief.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    },
+    {
+      "case_id": "diffraction-wipe-panel-corners",
+      "source_id": "egocentric-maintenance-sample",
+      "video_path": "videos/wipe-panel-corners.mp4",
+      "asset_url": "https://huggingface.co/datasets/diffracting/egocentric-maintenance-sample/resolve/acd7da07ca85bf16c99c61edf656515fa9d2b9c4/videos/wipe-panel-corners.mp4",
+      "duration_seconds": 27.95,
+      "proposed_clip_window_seconds": [
+        0,
+        27.95
+      ],
+      "width": 1920,
+      "height": 1080,
+      "nominal_fps": 30.0179,
+      "frame_count": 839,
+      "publisher_video_sha256": "9746b2da9971161315d373dd2e738083704328a699f3994f24823a504c2f651a",
+      "hash_verified_locally": false,
+      "local_path": null,
+      "access_probe": {
+        "method": "HEAD",
+        "anonymous": true,
+        "http_status": 200,
+        "payload_bytes_downloaded": 0
+      },
+      "scene_from_publisher_metadata": "Recess wiping",
+      "proposed_evaluation": "Narrow-region visibility and uncertainty.",
+      "scene_evidence_status": "publisher_metadata_only_not_visually_reviewed",
+      "permissions_ref": "rights",
+      "ready_for_scored_run": false,
+      "annotations_frozen": false
+    }
+  ],
+  "uncovered_acceptance": [
+    "Leaving a room/home and activity changes outside a cooking brief",
+    "Keys/phone/umbrella placement, collection and pocket visibility",
+    "Readable stove controls or door-lock state",
+    "Coding/OCR from glasses-like distant screen",
+    "Real microphone, natural barge-in and glasses speaker route"
+  ],
+  "next_gate": [
+    "Authorize bounded media acquisition separately; no download in this task.",
+    "Fetch only selected pinned videos and needed metadata, then verify publisher hashes locally.",
+    "Review actual pixels for suitability/privacy; exclude unsupported or sensitive windows.",
+    "Freeze paired contexts and human-reviewed event intervals before model outputs; exclude titles/annotations/future frames from model context.",
+    "Execute actual POV-video iOS frontend-to-backend/output tests, not only analyzer/harness tests; report hardware limitations."
+  ]
+}

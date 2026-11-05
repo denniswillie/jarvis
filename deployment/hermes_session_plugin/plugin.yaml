@@ -1,0 +1,5 @@
+name: jarvis-retained-work
+version: 0.1.0
+description: Owner-scoped retained Hermes work conversations and parent messaging.
+provides_tools:
+  - work_session

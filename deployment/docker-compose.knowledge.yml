@@ -1,0 +1,109 @@
+# Explicit opt-in stack. This file does not activate Jarvis memory or backfill.
+services:
+  hindsight-db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: hindsight
+      POSTGRES_USER: hindsight
+      POSTGRES_PASSWORD_FILE: /run/secrets/hindsight_db_password
+    secrets:
+      - hindsight_db_password
+    volumes:
+      - hindsight-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 1
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hindsight -d hindsight"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  hindsight-api:
+    build:
+      context: ..
+      dockerfile: deployment/hindsight/Dockerfile
+    image: jarvis-hindsight:0.9.2-policy-v1
+    networks:
+      - default
+      - knowledge-clients
+    depends_on:
+      hindsight-db:
+        condition: service_healthy
+    environment:
+      JARVIS_HINDSIGHT_DB_PASSWORD_FILE: /run/secrets/hindsight_db_password
+      JARVIS_HINDSIGHT_DB_HOST: hindsight-db
+      HINDSIGHT_API_TENANT_EXTENSION: hindsight_api.extensions.builtin.tenant:ApiKeyTenantExtension
+      HINDSIGHT_API_TENANT_API_KEY_FILE: /run/secrets/hindsight_api_key
+      HINDSIGHT_API_LLM_PROVIDER: openai-responses
+      HINDSIGHT_API_LLM_MODEL: gpt-5.4-mini
+      HINDSIGHT_API_LLM_API_KEY_FILE: /run/secrets/openai_api_key
+      HINDSIGHT_API_LLM_MAX_CONCURRENT: "4"
+      HINDSIGHT_API_LLM_MAX_RETRIES: "2"
+      HINDSIGHT_API_LLM_TIMEOUT: "90"
+      HINDSIGHT_API_LLM_TEMPERATURE: none
+      HINDSIGHT_API_LLM_REASONING_EFFORT: low
+      HINDSIGHT_API_EMBEDDINGS_PROVIDER: openai
+      HINDSIGHT_API_EMBEDDINGS_OPENAI_MODEL: text-embedding-3-small
+      HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
+      HINDSIGHT_API_RERANKER_PROVIDER: rrf
+      HINDSIGHT_API_ENABLE_RERANKING: "false"
+      HINDSIGHT_API_WORKER_MAX_SLOTS: "2"
+      HINDSIGHT_API_WORKER_CONSOLIDATION_RESERVED_SLOTS: "1"
+      HINDSIGHT_API_WORKER_MAX_RETRIES: "0"
+      HINDSIGHT_API_LLM_TRACE_ENABLED: "false"
+      HINDSIGHT_API_AUDIT_LOG_ENABLED: "false"
+      HINDSIGHT_API_OTEL_TRACES_ENABLED: "false"
+      HINDSIGHT_API_LLM_DEBUG_DUMP_4XX: "false"
+      HINDSIGHT_API_ENABLE_OBSERVATION_HISTORY: "false"
+      HINDSIGHT_API_ENABLE_MENTAL_MODEL_HISTORY: "false"
+    secrets:
+      - hindsight_db_password
+      - hindsight_api_key
+      - openai_api_key
+    ports:
+      - "127.0.0.1:${JARVIS_HINDSIGHT_PORT:-8888}:8888"
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+    mem_limit: 1g
+    cpus: 1
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+      - /home/hindsight/.cache:rw,noexec,nosuid,size=64m,uid=10001,gid=10001
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import pathlib,urllib.request; key=pathlib.Path('/run/secrets/hindsight_api_key').read_text().strip(); req=urllib.request.Request('http://127.0.0.1:8888/openapi.json',headers={'Authorization':'Bearer '+key}); urllib.request.urlopen(req,timeout=3).close()"
+      interval: 15s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+secrets:
+  hindsight_db_password:
+    file: ${JARVIS_HINDSIGHT_SECRET_DIR:?Set a private absolute secrets directory}/db-password
+  hindsight_api_key:
+    file: ${JARVIS_HINDSIGHT_SECRET_DIR:?Set a private absolute secrets directory}/api-key
+  openai_api_key:
+    file: ${JARVIS_HINDSIGHT_SECRET_DIR:?Set a private absolute secrets directory}/openai-api-key
+volumes:
+  hindsight-data:
+
+networks:
+  knowledge-clients:
+    name: ${JARVIS_KNOWLEDGE_NETWORK:-jarvis-knowledge-clients}
+    internal: true

@@ -1,0 +1,6 @@
+# Optional source-backed generated reports. Requires configured knowledge,
+# storage, sandbox execution and the matching updated worker/schema.
+services:
+  jarvis-frontier:
+    environment:
+      SECOND_BRAIN_ARTIFACTS_ENABLED: ${JARVIS_ARTIFACTS_ENABLED:-false}

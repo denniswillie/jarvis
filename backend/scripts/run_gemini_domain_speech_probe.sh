@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if [ "$#" -lt 2 ] || [ -e "$1" ]; then
+  printf 'Usage: %s NEW_OUTPUT_DIRECTORY SPEECH_DIRECTORY [STAGES] [REPEATS]\n' "$0" >&2
+  exit 2
+fi
+root=$(cd "$(dirname "$0")/../.." && pwd)
+output=$1
+speech=$(cd "$2" && pwd)
+mkdir -p "$(dirname "$output")"
+parent=$(cd "$(dirname "$output")" && pwd)
+name=$(basename "$output")
+container=${JARVIS_BACKEND_CONTAINER:-deployment-jarvis-backend-1}
+image=$(docker inspect "$container" --format '{{.Image}}')
+docker exec "$container" python -B -c '
+import json
+from app.settings import JarvisSettings
+s = JarvisSettings()
+print(json.dumps({"database": s.SUPABASE_DB_URL, "gemini": s.GEMINI_API_KEY}))
+' | docker run --rm -i --read-only --tmpfs /tmp:rw,nosuid,nodev \
+  --mount "type=bind,source=$root,target=/workspace,readonly" \
+  --mount "type=bind,source=$parent,target=/results" \
+  --mount "type=bind,source=$speech,target=/speech,readonly" \
+  --workdir /workspace/backend --env PYTHONDONTWRITEBYTECODE=1 \
+  --entrypoint python "$image" -B -m evals.gemini_live.domain_speech_probe \
+  --output "/results/$name" --speech-dir /speech \
+  --stages "${3:-before_admission,during_execution,after_commit,after_receipt}" --repeats "${4:-2}"

@@ -1,0 +1,179 @@
+{
+  "format": "jarvis.native_memory_replay.contract.v1",
+  "case_id": "c02-c",
+  "evidence_mode": "offline_controller_contract_not_native_acceptance",
+  "media_origin_ms": 35000,
+  "source_end_ms": 32000,
+  "max_wall_seconds": 900,
+  "provenance": {
+    "frozen_timeline": ".jarvis-dev/pov-curation-20261031-chronological-01/inputs/timelines.json",
+    "frozen_oracle": ".jarvis-dev/pov-curation-20261031-chronological-01/evaluator/expectations.json",
+    "oracle_revision": 1,
+    "original_assets": ".jarvis-dev/pov-curation-20261031-chronological-01/inputs/c02/assets.json",
+    "source_sha256": "8a7efeadc9a2bd2cdac97c7f55df35ef6cb144b64c98d707251f5caae168f1da",
+    "reference_c02a_manifest_sha256": "44fb87e20a5ef99870f8b4a4ac92afc58d3603c5ad1656bbf39855e7ef959ad5",
+    "reference_is_not_a_multisession_manifest": true
+  },
+  "phases": [
+    {
+      "id": "observe",
+      "day": 0,
+      "start_ms": 0,
+      "end_ms": 67000,
+      "query_ms": null,
+      "speech_ids": [
+        "u03"
+      ],
+      "frames": [
+        {
+          "id": "c02-frame-01",
+          "source_pts_ms": 0,
+          "at_ms": 35000,
+          "sha256": "b77fdec1a6767f43afa28bffd2cc23c7bbae867a0589d519b2fc5b13251c04ff"
+        },
+        {
+          "id": "c02-frame-02",
+          "source_pts_ms": 2000,
+          "at_ms": 37000,
+          "sha256": "5e20fb4ed030f3292c7a47c5a287cb8d2a98441a20293374271c4b8d8642a272"
+        },
+        {
+          "id": "c02-frame-03",
+          "source_pts_ms": 4000,
+          "at_ms": 39000,
+          "sha256": "00fd699d30736fa5c7b56cc56b76b29532572f8311d3327f77384aab18097168"
+        },
+        {
+          "id": "c02-frame-04",
+          "source_pts_ms": 6000,
+          "at_ms": 41000,
+          "sha256": "3c11da47f788b0bc978dae3654f02f7e34375cca7b104d541fa1c74a30eab016"
+        },
+        {
+          "id": "c02-frame-05",
+          "source_pts_ms": 8000,
+          "at_ms": 43000,
+          "sha256": "6522efee339b91827c729572fdd65896eef47cd5ee9549a99101c6acf911bc3b"
+        },
+        {
+          "id": "c02-frame-06",
+          "source_pts_ms": 10000,
+          "at_ms": 45000,
+          "sha256": "b6dc2dbd549c524b92d77f0c1f6f295bdad5e2ac2150deb4c2f6d3f018a7ae4f"
+        },
+        {
+          "id": "c02-frame-07",
+          "source_pts_ms": 12000,
+          "at_ms": 47000,
+          "sha256": "17563f26378a59ebf61919ed2223a2014b6579c278ae7980608e437cc8c4708d"
+        },
+        {
+          "id": "c02-frame-08",
+          "source_pts_ms": 14000,
+          "at_ms": 49000,
+          "sha256": "cf0b0eed51c4616b9ef8f0d02117304fb5a62821e1dc4df6d98aa3f1b096d922"
+        },
+        {
+          "id": "c02-frame-09",
+          "source_pts_ms": 16000,
+          "at_ms": 51000,
+          "sha256": "0397e5ec10b89758daf72c82951cb326f1128601c0e420243ab782024206618d"
+        },
+        {
+          "id": "c02-frame-10",
+          "source_pts_ms": 18000,
+          "at_ms": 53000,
+          "sha256": "f8acc2af3d9e9583e7185d523f18e28b260a2cb5193133af03d8636597bcbaf9"
+        },
+        {
+          "id": "c02-frame-11",
+          "source_pts_ms": 20000,
+          "at_ms": 55000,
+          "sha256": "507f5bea6857fe4915cff7c846528f89e42d86973516dfd9c36a39fa8deddf99"
+        },
+        {
+          "id": "c02-frame-12",
+          "source_pts_ms": 22000,
+          "at_ms": 57000,
+          "sha256": "cbb4d3f56b840730854c671329b2720801a7def5e5c5b6a76e4fb7939a891a56"
+        },
+        {
+          "id": "c02-frame-13",
+          "source_pts_ms": 24000,
+          "at_ms": 59000,
+          "sha256": "deb34ffa9c1447df7000fc89065b3050502fdc23845ee14d6707ccf66c391056"
+        },
+        {
+          "id": "c02-frame-14",
+          "source_pts_ms": 26000,
+          "at_ms": 61000,
+          "sha256": "0a5ccfa262acaf3a9b4c546f5b7843d2c913981bde5f5338bdd8713d57c99f20"
+        },
+        {
+          "id": "c02-frame-15",
+          "source_pts_ms": 28000,
+          "at_ms": 63000,
+          "sha256": "218788d87fcaca5615c1b41b85fb5adb7ece031ee660449e2e7b131f56917d64"
+        },
+        {
+          "id": "c02-frame-16",
+          "source_pts_ms": 30000,
+          "at_ms": 65000,
+          "sha256": "1636f4bb319c8c2374d8a7d98c9b47e7aadfd284a44b2ab89f0d12b0584a76f8"
+        }
+      ]
+    },
+    {
+      "id": "recall",
+      "day": 0,
+      "start_ms": 67000,
+      "end_ms": 95000,
+      "query_ms": 75000,
+      "speech_ids": [
+        "u04"
+      ],
+      "frames": []
+    }
+  ],
+  "required_native_seams": [
+    "retained_fixture_per_session_runner_adapter",
+    "zero_camera_prepared_staging",
+    "shared_absolute_source_clock_across_app_sessions",
+    "canonical_publication_retrieval_and_retirement_receipts"
+  ],
+  "limits": {
+    "sessions": 2,
+    "admissions_per_session": 1,
+    "concurrency": 1,
+    "scene_seconds": 180,
+    "task_trigger_timeout_seconds": 120,
+    "host_join_seconds": 65,
+    "canonical_export_seconds": 60,
+    "cleanup_seconds": 180,
+    "public_demo": false
+  },
+  "calendar": {
+    "checkpoints_days": [
+      0,
+      1,
+      7,
+      30,
+      90
+    ],
+    "status": "separate_unsupported_native_calendar_extension_not_c02c_v1",
+    "month_meaning": "explicit_day30_and_day90_checkpoints_not_calendar_month_arithmetic",
+    "domain_components": [
+      "live_state",
+      "working_memory",
+      "source_date_filters"
+    ],
+    "real_clocks": [
+      "authorization",
+      "lease",
+      "transport",
+      "database",
+      "monotonic_latency"
+    ],
+    "scheduler_time_travel": false
+  }
+}

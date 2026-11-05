@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "sources": [
+    {
+      "key": "alder-clearance",
+      "revision": 1,
+      "time": "2023-01-10T12:00:00+00:00",
+      "text": "User-reported robot Alder requirement: keep at least 37 mm clearance beneath shelves because its raised sensor hood otherwise catches. This requirement remains applicable."
+    },
+    {
+      "key": "alder-speed",
+      "revision": 1,
+      "time": "2023-02-10T12:00:00+00:00",
+      "text": "User-reported initial robot Alder wheel-speed cap: 0.80 m/s."
+    },
+    {
+      "key": "alder-speed",
+      "revision": 2,
+      "time": "2024-03-10T12:00:00+00:00",
+      "text": "User correction for robot Alder: the wheel-speed cap is now 0.35 m/s, replacing the prior 0.80 m/s cap because its wheel encoders become unreliable on thick carpet."
+    },
+    {
+      "key": "birch-clearance",
+      "revision": 1,
+      "time": "2026-09-16T12:00:00+00:00",
+      "text": "User-reported robot Birch settings: 85 mm clearance and a 1.40 m/s wheel-speed cap. These are Birch's settings, not Alder's."
+    }
+  ],
+  "cases": [
+    {
+      "id": "S09-alder-current-and-history",
+      "query": "For robot Alder, what minimum shelf clearance and current wheel-speed cap should I use, why were these chosen, and how did its speed cap change? Look up the original records and their history rather than guessing, and distinguish my reports from direct measurements.",
+      "required_current": [
+        "alder-clearance:1",
+        "alder-speed:2"
+      ],
+      "required_historical": [
+        "alder-speed:1"
+      ],
+      "required_values": [
+        "37",
+        "0.35",
+        "0.80"
+      ],
+      "forbidden_current": [
+        "alder-speed:1",
+        "birch-clearance:1"
+      ],
+      "candidate_oracle_scope": "Current required originals must occur in the bounded verified search; historical originals must be discovered/read locally.",
+      "answer_oracle_scope": "Verify all three exact source citations, correct values, stated reasons, correct robot, and report-versus-measurement wording independently."
+    }
+  ]
+}

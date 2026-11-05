@@ -1,0 +1,13 @@
+# Optional retained-frame access. Combine with docker-compose.frontier.yml.
+# This is not a live camera RPC or a foreground provider switch.
+services:
+  jarvis-frontier:
+    environment:
+      SUPABASE_URL: ${JARVIS_FRONTIER_SUPABASE_URL:?Set the existing Supabase origin}
+      SUPABASE_STORAGE_BUCKET: ${JARVIS_FRONTIER_FRAME_BUCKET:?Set the existing frame bucket}
+      JARVIS_FRONTIER_STORAGE_KEY_FILE: /run/secrets/supabase_storage_key
+    secrets:
+      - supabase_storage_key
+secrets:
+  supabase_storage_key:
+    file: ${JARVIS_FRONTIER_SECRET_DIR:?Set a private absolute secrets directory}/supabase-storage-key

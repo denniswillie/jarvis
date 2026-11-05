@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "generator": "evals.perception_memory.generate_fixtures:v2-pillow-11.3.0",
+  "entries": [
+    {
+      "id": "desk_static",
+      "path": "images/desk_static.jpg",
+      "sha256": "0a6ef9dacbc50bd36787fc89628eb727eeaa67256a79ee931398ed590d49a95a",
+      "width": 640,
+      "height": 360,
+      "description": "Notebook, mug, and blue pen"
+    },
+    {
+      "id": "label_small_text",
+      "path": "images/label_small_text.jpg",
+      "sha256": "528e7227d2f3d53a243704b9699991804520fa53a22a3fca8f44ba2fb426d98e",
+      "width": 640,
+      "height": 360,
+      "description": "Use 12 mL before 18:30"
+    },
+    {
+      "id": "reach_keys",
+      "path": "images/reach_keys.jpg",
+      "sha256": "119abc2ce1922430378dbaefaaa41ede9b9da0e02e7205c07e0af70dc6321e06",
+      "width": 640,
+      "height": 360,
+      "description": "Hand approaching keys"
+    },
+    {
+      "id": "pickup_keys",
+      "path": "images/pickup_keys.jpg",
+      "sha256": "ab214939b7da91458afb52e8cbc5b1bd744e329c9acb057c5d6bbc1e8294423c",
+      "width": 640,
+      "height": 360,
+      "description": "Hand lifting keys"
+    },
+    {
+      "id": "putdown_keys",
+      "path": "images/putdown_keys.jpg",
+      "sha256": "9a19dd6df31d1cd10ca3ea729b6bd39e7fd63fd1113200bd8413a7de82954914",
+      "width": 640,
+      "height": 360,
+      "description": "Keys placed on counter"
+    },
+    {
+      "id": "kitchen_scene",
+      "path": "images/kitchen_scene.jpg",
+      "sha256": "a25e8ceb56d6be0746e95eb94c2f4b15dc63d406b64ce46b4cb3069ee92f58f9",
+      "width": 640,
+      "height": 360,
+      "description": "Counter, kettle, and keys"
+    },
+    {
+      "id": "hallway_scene",
+      "path": "images/hallway_scene.jpg",
+      "sha256": "89c4a20d0ea3a71ff10b293f920652005ae073b8496f6b50fc93349a75ff6fc1",
+      "width": 640,
+      "height": 360,
+      "description": "Coat rack and closed door"
+    },
+    {
+      "id": "keys_counter",
+      "path": "images/keys_counter.jpg",
+      "sha256": "f16da73106d6beffc39ecbfee6ae2e524d5af4a8ac17822cc7372833fafb32bc",
+      "width": 640,
+      "height": 360,
+      "description": "Keys beside the green bowl"
+    },
+    {
+      "id": "keys_pocket",
+      "path": "images/keys_pocket.jpg",
+      "sha256": "4db7b0cae4305f8c76423efed4696dbbee288fb157ab9e30189e1fff0dc92216",
+      "width": 640,
+      "height": 360,
+      "description": "Keys entering jacket pocket"
+    },
+    {
+      "id": "painting_detail",
+      "path": "images/painting_detail.jpg",
+      "sha256": "49f0f20ee0bdbc45cad91b8e06d7164d5e1df294e4cc2985dfe605d82ddd345b",
+      "width": 640,
+      "height": 360,
+      "description": "Woman blowing pink bubblegum"
+    },
+    {
+      "id": "toothbrush",
+      "path": "images/toothbrush.jpg",
+      "sha256": "29f015a455d585752a4190d07a5b06159d3135e2e47c4adafae7faa2e2bc6c7a",
+      "width": 640,
+      "height": 360,
+      "description": "Toothbrush beside dental floss"
+    }
+  ]
+}

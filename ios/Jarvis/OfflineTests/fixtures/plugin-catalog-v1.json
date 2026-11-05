@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "evaluated_at": "2026-11-01T23:00:00Z",
+  "policy_revision": 7,
+  "policy_available": true,
+  "items": [
+    {
+      "plugin_id": "video_editor",
+      "title": "Video Editor",
+      "description": "Create and edit videos",
+      "category": "video_editing",
+      "descriptor_version": 1,
+      "selected_default": true,
+      "desired_enabled": true,
+      "configuration_id": "00000000-0000-4000-8000-000000000001",
+      "installed": "installed",
+      "installed_version": "fixture-1",
+      "readiness": "ready",
+      "reason_code": null,
+      "observations_valid_until": "2026-11-01T23:01:00Z",
+      "operation": null,
+      "can_change": false
+    },
+    {
+      "plugin_id": "browser",
+      "title": "Browser",
+      "description": "Browse websites and find information",
+      "category": "web_browsing",
+      "descriptor_version": 1,
+      "selected_default": false,
+      "desired_enabled": null,
+      "configuration_id": null,
+      "installed": "unknown",
+      "installed_version": null,
+      "readiness": "unknown",
+      "reason_code": "plugin_choice_unavailable",
+      "observations_valid_until": null,
+      "operation": null,
+      "can_change": false
+    },
+    {
+      "plugin_id": "files_data",
+      "title": "Files & data",
+      "description": "Work with files, tables, and calculations",
+      "category": "files_data",
+      "descriptor_version": 1,
+      "selected_default": false,
+      "desired_enabled": null,
+      "configuration_id": null,
+      "installed": "unknown",
+      "installed_version": null,
+      "readiness": "unknown",
+      "reason_code": "plugin_choice_unavailable",
+      "observations_valid_until": null,
+      "operation": null,
+      "can_change": false
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+<!doctype html><meta charset="utf-8"><title>S01 private decoded-media capture</title>
+<script>
+// BEGIN SHARED_BUFFER_TRACKER
+function createSharedBufferTracker(limit = 256) {
+  let generation = 0, sequence = 0, order = 0, latest = 0;
+  let lastStart = null, drain = null, interrupted = false, uncertain = false, error = null;
+  const known = new Map();
+  return {
+    beginTurn() {
+      generation++;
+      latest = 0; lastStart = drain = null; interrupted = uncertain = false;
+      return generation;
+    },
+    observe(payload) {
+      sequence++;
+      const kind = payload.type, id = payload.response_id || payload.response?.id;
+      if (kind === 'response.created') {
+        if (typeof id !== 'string' || !id || known.has(id) || known.size >= limit) {
+          error = 'shared_buffer_response_identity_or_bound'; return;
+        }
+        const response = {generation, response_order:++order};
+        known.set(id, response); latest = response.response_order;
+        return;
+      }
+      const response = known.get(id);
+      const current = response && response.generation === generation;
+      if (kind === 'input_audio_buffer.speech_started') {
+        // The first VAD start follows leanStart. Further speech within that
+        // same replay input cannot complete an interrupted response chain.
+        if (latest) {interrupted = true; drain = null;}
+      } else if (kind === 'response.done' && current && payload.response?.status !== 'completed') {
+        interrupted = true; drain = null;
+      } else if (kind === 'output_audio_buffer.started') {
+        if (!response) {uncertain = true; drain = null; return;}
+        if (!current) return;
+        lastStart = {response_id:id, generation, response_order:Math.max(
+          response.response_order, lastStart?.response_order || 0), event_sequence:sequence};
+        drain = null;
+      } else if (kind === 'output_audio_buffer.cleared') {
+        if (response && !current) return;
+        // A clear is interruption, never successful drain evidence. An
+        // unattributed clear cannot safely certify this generation either.
+        interrupted = true; drain = null;
+      } else if (kind === 'output_audio_buffer.stopped') {
+        // stopped describes the shared buffer, not a pair with started(id).
+        // Creation order fences a late older stop against newer playback.
+        if (!current || interrupted || uncertain ||
+            response.response_order < (lastStart?.response_order || 0) ||
+            response.response_order < (drain?.response_order || 0)) return;
+        drain = {response_id:id, generation, response_order:response.response_order,
+          event_sequence:sequence};
+      }
+    },
+    response(id) {const value = known.get(id); return value ? {...value} : null;},
+    snapshot() {return {generation, latest_response_order:latest, last_start:lastStart,
+      drain, interrupted, uncertain, error, retained_responses:known.size};}
+  };
+}
+// END SHARED_BUFFER_TRACKER
+(() => {
+  'use strict';
+  const RATE = 48000;
+  let ctx, pc, dc, sink, limits, incoming, input, output, currentSource;
+  let configured = false, configuration = null, fatal = null, frozen = false;
+  let captureStart = 0, captured = 0, signal = 0, responseCount = 0, cleanupPromise;
+  const clips = new Map(), turns = [], responses = {}, events = [], nodes = [], renderers = [];
+  const playback = createSharedBufferTracker();
+  const fail = code => { fatal ||= code; try { currentSource?.stop(); } catch {} };
+  const now = () => ({audio_frame: Math.round(ctx.currentTime * RATE), browser_ms: performance.now()});
+  function event(value) {
+    if (events.length >= 4096) { fail('event_bound'); return; }
+    events.push({...now(), ...value});
+  }
+  function observeFunctionCall(response, item) {
+    response.has_function_calls = true;
+    if (typeof item.call_id === 'string' && !response.function_call_ids.includes(item.call_id))
+      response.function_call_ids.push(item.call_id);
+  }
+  const processor = `class Capture extends AudioWorkletProcessor {
+    constructor(){super();this.stopped=false;this.port.onmessage=()=>{this.stopped=true;this.port.postMessage({stopped:true});};}
+    process(inputs,outputs){
+      const data=inputs[0]?.[0];
+      if(data) for(const channel of outputs[0]||[]) channel.set(data);
+      if(data&&!this.stopped){
+        const buffer=new ArrayBuffer(data.length*2), view=new DataView(buffer);
+        let first=null,last=null,signal=0;
+        for(let i=0;i<data.length;i++){
+          const value=Math.max(-1,Math.min(1,data[i]));
+          view.setInt16(i*2,Math.round(value<0?value*32768:value*32767),true);
+          if(Math.abs(value)>0.002){if(first===null)first=currentFrame+i;last=currentFrame+i;signal++;}
+        }
+        this.port.postMessage({frame:currentFrame,count:data.length,first,last,signal,buffer},[buffer]);
+      }
+      return true;
+    }
+  } registerProcessor('s01-capture',Capture);`;
+  const stopped = new Map();
+  function meter(kind) {
+    const node = new AudioWorkletNode(ctx, 's01-capture', {outputChannelCount:[1]});
+    node.onprocessorerror = () => fail('worklet_failed');
+    node.port.onmessage = ({data}) => {
+      if (data.stopped) { stopped.get(kind)?.(); return; }
+      if (frozen) return;
+      const turn = turns.at(-1);
+      if (kind === 'output') {
+        const start = data.frame - captureStart;
+        if (start < 0) return;
+        if (start + data.count > limits.capture_samples) { fail('capture_bound'); return; }
+        output.set(new Uint8Array(data.buffer), start * 2);
+        captured = Math.max(captured, start + data.count); signal += data.signal;
+      }
+      if (turn && data.first !== null && data.first >= turn.start_frame) {
+        const first = kind === 'output' ? 'first_output_sample' : 'first_input_sample';
+        const last = kind === 'output' ? 'last_output_sample' : 'last_input_sample';
+        turn[first] ??= data.first; turn[last] = data.last;
+      }
+    };
+    nodes.push(node); return node;
+  }
+  window.leanPrepare = async value => {
+    limits = value;
+    ctx = new AudioContext({sampleRate:RATE, latencyHint:'interactive'}); await ctx.resume();
+    if (ctx.sampleRate !== RATE) throw Error('sample_rate_mismatch');
+    const url = URL.createObjectURL(new Blob([processor], {type:'text/javascript'}));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    captureStart = now().audio_frame;
+    output = new Uint8Array(limits.capture_samples * 2);
+    sink = ctx.createGain(); sink.gain.value = 0; sink.connect(ctx.destination);
+    input = meter('input');
+    const outgoing = ctx.createMediaStreamDestination(); input.connect(outgoing); nodes.push(outgoing);
+    pc = new RTCPeerConnection({iceServers:[]});
+    pc.addTrack(outgoing.stream.getAudioTracks()[0], outgoing.stream);
+    pc.ontrack = e => {
+      if (incoming) { fail('extra_output_track'); return; }
+      const stream = new MediaStream([e.track]);
+      const source = ctx.createMediaStreamSource(stream); incoming = meter('output');
+      source.connect(incoming); incoming.connect(sink); nodes.push(source);
+      const audio = document.createElement('audio'); audio.autoplay = true; audio.muted = true;
+      audio.volume = 0; audio.srcObject = stream; renderers.push(audio);
+      audio.play().catch(() => fail('muted_renderer_failed'));
+      event({type:'decoded_track_attached'});
+    };
+    dc = pc.createDataChannel('oai-events');
+    dc.onmessage = e => {
+      let p; try { p = JSON.parse(e.data); } catch { fail('provider_json'); return; }
+      const id = p.response_id || p.response?.id;
+      event({type:p.type, response_id:id, item_id:p.item_id, call_id:p.call_id,
+        status:p.response?.status, transcript:p.transcript?.slice(0,16000)});
+      const turn = turns.at(-1);
+      if (p.type === 'error') fail('provider_error');
+      if (p.type === 'session.updated' && p.session?.max_output_tokens === limits.max_output_tokens_per_response) {
+        const names = (p.session.tools || []).map(x => x.name);
+        const vad = p.session.audio?.input?.turn_detection;
+        if (!names.includes('live_note') || !names.includes('live_read') ||
+            vad?.create_response !== true || vad?.interrupt_response !== true) { fail('lean_configuration_mismatch'); return; }
+        configuration = {max_output_tokens:p.session.max_output_tokens, tools:names, native_turns:true}; configured = true;
+      }
+      if (p.type === 'input_audio_buffer.committed' && turn) turn.input_item_ids.push(p.item_id);
+      if (p.type === 'response.created') {
+        if (!id || responses[id]) { fail('response_identity'); return; }
+        if (++responseCount >= limits.response_stop_count) fail('response_budget_stop');
+        responses[id] = {status:'in_progress', created_frame:now().audio_frame,
+          output_observed:false, has_audio_output:false, has_function_calls:false, function_call_ids:[]};
+        if (turn) turn.response_ids.push(id);
+      }
+      if (responses[id] && p.type.startsWith('response.output_item.') && p.item?.type === 'function_call')
+        observeFunctionCall(responses[id], p.item);
+      if (responses[id] && p.type.startsWith('response.function_call_arguments.'))
+        observeFunctionCall(responses[id], p);
+      if (p.type === 'response.done' && responses[id]) {
+        const response = responses[id]; response.status = p.response.status;
+        response.output_observed = Array.isArray(p.response.output);
+        response.has_audio_output = response.output_observed && p.response.output.some(item =>
+          item?.type === 'message' && Array.isArray(item.content) && item.content.some(part =>
+            part?.type === 'output_audio' || part?.type === 'audio'));
+        if (response.output_observed) for (const item of p.response.output)
+          if (item?.type === 'function_call') observeFunctionCall(response, item);
+      }
+      if (p.type === 'output_audio_buffer.started' && responses[id]) responses[id].buffer_started = true;
+      if (p.type === 'output_audio_buffer.stopped' && responses[id]) responses[id].buffer_stopped = true;
+      playback.observe(p);
+      const binding = playback.response(id);
+      if (responses[id] && binding) Object.assign(responses[id], {
+        playback_generation:binding.generation, creation_order:binding.response_order});
+      if (playback.snapshot().error) fail(playback.snapshot().error);
+    };
+    return {sample_rate:RATE, physical_gain:0, capture_start_frame:captureStart};
+  };
+  window.leanLoad = async (id, encoded) => {
+    if (clips.has(id) || clips.size >= 4) throw Error('clip_bound');
+    const bytes = Uint8Array.from(atob(encoded), c => c.charCodeAt(0));
+    const audio = await ctx.decodeAudioData(bytes.buffer);
+    if (audio.numberOfChannels !== 1 || audio.sampleRate !== RATE || audio.duration > 15) throw Error('clip_format');
+    clips.set(id, audio); return true;
+  };
+  async function until(predicate, milliseconds, code) {
+    const end = performance.now() + milliseconds;
+    while (!predicate()) { if (fatal || performance.now() >= end) throw Error(code); await new Promise(r => setTimeout(r,20)); }
+  }
+  window.leanOffer = async () => {
+    await pc.setLocalDescription(await pc.createOffer());
+    await until(() => pc.iceGatheringState === 'complete', 10000, 'ice_timeout');
+    return {sdp:pc.localDescription.sdp};
+  };
+  window.leanAnswer = async sdp => {
+    await pc.setRemoteDescription({type:'answer', sdp});
+    await until(() => pc.connectionState === 'connected' && dc.readyState === 'open', 18000, 'media_timeout');
+    return true;
+  };
+  window.leanConfigure = () => {
+    dc.send(JSON.stringify({type:'session.update', event_id:'s01_output_budget',
+      session:{type:'realtime', max_output_tokens:limits.max_output_tokens_per_response}}));
+    return true;
+  };
+  window.leanStart = id => {
+    if (!configured || fatal || frozen || turns.length >= 4 || !clips.has(id)) throw Error('input_not_admitted');
+    const turn = {id, start_frame:now().audio_frame, playback_generation:playback.beginTurn(),
+      response_ids:[], input_item_ids:[], input_ended:false};
+    const source = ctx.createBufferSource(); source.buffer = clips.get(id); source.connect(input);
+    turn.scheduled_frame = Math.round((ctx.currentTime + .15) * RATE);
+    turn.source_samples = source.buffer.length;
+    source.onended = () => { turn.input_ended = true; turn.input_ended_callback = now(); };
+    turns.push(turn); currentSource = source; nodes.push(source);
+    source.start(turn.scheduled_frame / RATE); return turn;
+  };
+  window.leanState = () => ({...now(), configured, configuration, fatal, turns, responses,
+    playback:playback.snapshot()});
+  window.leanStop = async () => {
+    try { currentSource?.stop(); } catch {}
+    if (!frozen) {
+      await Promise.race([Promise.all([['input',input],['output',incoming]].filter(x=>x[1]).map(([kind,node])=>
+        new Promise(resolve=>{stopped.set(kind,resolve);node.port.postMessage('stop');}))),
+        new Promise((_,reject)=>setTimeout(()=>reject(Error('capture_flush_timeout')),2000))]);
+      frozen = true;
+    }
+    return {...window.leanState(), events, capture_start_frame:captureStart, captured_samples:captured,
+      decoded_signal_samples:signal, sample_rate:RATE, physical_gain:0,
+      attribution:'provider control intervals, not per-packet response or hearing proof'};
+  };
+  window.leanChunk = (start,count) => {
+    if (!frozen || !Number.isInteger(start) || !Number.isInteger(count) || start<0 || count<0 || count>RATE || start+count>captured)
+      throw Error('capture_chunk_bound');
+    let text=''; for (const byte of output.subarray(start*2,(start+count)*2)) text += String.fromCharCode(byte);
+    return btoa(text);
+  };
+  window.cleanup = () => cleanupPromise ||= (async () => {
+    for (const audio of renderers) {audio.pause();audio.srcObject=null;}
+    for (const node of nodes) {try {node.stop?.();node.disconnect();} catch {}}
+    if(pc){pc.getSenders().forEach(s=>s.track?.stop());pc.getReceivers().forEach(r=>r.track?.stop());pc.close();}
+    if(ctx && ctx.state!=='closed') await ctx.close();
+    return {peer:pc?.connectionState, context:ctx?.state, physical_gain:0};
+  })();
+})();
+</script>

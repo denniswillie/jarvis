@@ -1,0 +1,13 @@
+**
+!Dockerfile
+!pyproject.toml
+!app/
+!app/**
+!evals/
+!evals/**
+**/__pycache__/
+**/*.pyc
+**/.env*
+evals/**/reports/
+evals/**/artifacts/
+evals/**/output/

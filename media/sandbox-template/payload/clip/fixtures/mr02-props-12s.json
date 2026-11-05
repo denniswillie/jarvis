@@ -1,0 +1,46 @@
+{
+  "recipe": {
+    "schemaVersion": 1,
+    "width": 720,
+    "height": 1280,
+    "fps": 24,
+    "durationInFrames": 288,
+    "fit": "contain",
+    "audio": "preserve",
+    "segments": [
+      {
+        "segmentId": "first",
+        "sourceId": "original",
+        "fromFrame": 48,
+        "toFrame": 168,
+        "outputFromFrame": 0,
+        "durationInFrames": 120
+      },
+      {
+        "segmentId": "second",
+        "sourceId": "original",
+        "fromFrame": 288,
+        "toFrame": 456,
+        "outputFromFrame": 120,
+        "durationInFrames": 168
+      }
+    ],
+    "captions": [
+      {
+        "captionId": "title",
+        "fromFrame": 24,
+        "toFrame": 96,
+        "text": "Two moments"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "sourceId": "original",
+      "assetPath": "inputs/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.mp4",
+      "contentSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "durationMs": 30000,
+      "audioStreams": 1
+    }
+  ]
+}

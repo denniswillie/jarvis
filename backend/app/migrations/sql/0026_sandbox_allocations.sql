@@ -1,0 +1,35 @@
+-- Durable resource intent precedes E2B creation. No command text or credentials.
+create table jarvis_sandbox_allocations (
+    id uuid primary key default gen_random_uuid(),
+    owner_id text not null,
+    task_id uuid not null,
+    task_revision bigint not null check(task_revision>0),
+    attempt_id uuid not null,
+    grant_id uuid not null,
+    policy jsonb not null check(jsonb_typeof(policy)='object' and octet_length(policy::text)<=8192),
+    policy_digest text not null check(policy_digest ~ '^[0-9a-f]{64}$'),
+    phase text not null check(phase in ('reserved','creating','uncertain','preparing','ready','cleanup_requested','cleaned')),
+    submission_token uuid,
+    submission_fence bigint check(submission_fence>0),
+    sandbox_id text check(length(sandbox_id) between 1 and 200),
+    template_id text check(length(template_id) between 1 and 200),
+    provider_expires_at timestamptz check(isfinite(provider_expires_at)),
+    deadline timestamptz not null check(isfinite(deadline)),
+    reason text check(length(reason) between 1 and 100),
+    created_at timestamptz not null default clock_timestamp(),
+    updated_at timestamptz not null default clock_timestamp(),
+    unique(owner_id,id),
+    unique(owner_id,grant_id),
+    unique(owner_id,task_id,attempt_id),
+    unique(sandbox_id),
+    foreign key(owner_id,task_id,attempt_id) references jarvis_task_attempts(owner_id,task_id,id),
+    foreign key(owner_id,task_id,grant_id) references jarvis_task_grants(owner_id,task_id,grant_id),
+    check((submission_token is null)=(submission_fence is null)),
+    check((sandbox_id is null)=(template_id is null)),
+    check((sandbox_id is null)=(provider_expires_at is null)),
+    check(phase not in ('creating','uncertain','preparing','ready') or submission_token is not null),
+    check(phase not in ('preparing','ready') or sandbox_id is not null),
+    check(phase<>'reserved' or submission_token is null)
+);
+create index jarvis_sandbox_cleanup_due on jarvis_sandbox_allocations(deadline,owner_id)
+    where phase<>'cleaned';

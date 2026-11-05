@@ -1,0 +1,14 @@
+# Explicit worker-only E2B integration. Leave the secret mounted for cleanup
+# when JARVIS_SANDBOX_ENABLED=false; remove it only after resources are gone.
+services:
+  jarvis-frontier:
+    environment:
+      SECOND_BRAIN_SANDBOX_ENABLED: ${JARVIS_SANDBOX_ENABLED:-false}
+      SECOND_BRAIN_SANDBOX_INTERNET_ENABLED: ${JARVIS_SANDBOX_INTERNET_ENABLED:-false}
+      SECOND_BRAIN_SANDBOX_DESKTOP_ENABLED: ${JARVIS_SANDBOX_DESKTOP_ENABLED:-false}
+      JARVIS_FRONTIER_E2B_API_KEY_FILE: /run/secrets/e2b_api_key
+    secrets:
+      - e2b_api_key
+secrets:
+  e2b_api_key:
+    file: ${JARVIS_FRONTIER_SECRET_DIR:?Set a private absolute secrets directory}/e2b-api-key

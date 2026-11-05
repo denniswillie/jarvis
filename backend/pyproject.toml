@@ -1,0 +1,64 @@
+[project]
+name = "jarvis-backend"
+version = "0.1.0"
+description = "Personal Jarvis companion backend."
+requires-python = ">=3.12"
+dependencies = [
+    "asyncpg>=0.30.0",
+    "beautifulsoup4>=4.13.0",
+    "certifi>=2024.2.2",
+    "fastapi>=0.116.0",
+    "google-api-python-client>=2.170.0",
+    "google-auth>=2.40.0",
+    "google-auth-oauthlib>=1.2.0",
+    "httpx[http2]>=0.28.0",
+    "PyJWT[crypto]>=2.10.1",
+    "lxml>=5.4.0",
+    "openai>=1.99.0",
+    "orjson>=3.10.0",
+    "Pillow==11.3.0",
+    "pydantic>=2.11.0",
+    "pydantic-settings>=2.10.0",
+    "python-multipart>=0.0.20",
+    "uvicorn[standard]>=0.35.0",
+    "websockets>=15.0.0",
+]
+
+[project.optional-dependencies]
+setup = [
+    "PyYAML>=6.0.2",
+    "python-dotenv>=1.0.1",
+    "uv>=0.8.0",
+]
+sandbox = [
+    "e2b==2.49.1",
+]
+eval = [
+    "pypdf==6.19.0",
+    "openpyxl==3.1.5",
+]
+
+[project.scripts]
+jarvis-schema = "app.migrations.__main__:main"
+jarvis-perception-baseline = "evals.perception_memory.baseline_runner:main"
+jarvis-perception-eval = "evals.perception_memory.new_architecture_runner:main"
+
+[build-system]
+requires = ["setuptools>=80.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*", "evals*"]
+
+[tool.setuptools.package-data]
+"app" = ["schema.sql"]
+"app.migrations" = ["baseline.sql", "sql/*.sql"]
+"app.sandbox" = ["view_assets/*.js", "view_assets/novnc/*.json", "view_assets/novnc/*.txt", "view_assets/novnc/core/*.js", "view_assets/novnc/core/**/*.js", "view_assets/novnc/vendor/**/*"]
+"evals.perception_memory" = [
+    "scenarios.json",
+    "direct_image_access_scenarios.json",
+    "fixtures/README.md",
+    "fixtures/manifest.json",
+    "fixtures/images/*.jpg",
+    "reports/*.json",
+]

@@ -1,0 +1,190 @@
+<!doctype html><meta charset="utf-8"><title>Isolated synthetic voice qualification</title>
+<script>
+'use strict';
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const deadline = async (predicate, ms, label) => {
+  const end = performance.now() + ms;
+  while (!predicate()) {
+    if (performance.now() > end) throw Error(label);
+    await sleep(20);
+  }
+};
+const threshold = 0.002;
+let ctx, pc, dc, sink, outgoing, fixture, active, incomingMeter, localPeer, cleanupPromise;
+const nodes = [], events = [], renderers = [];
+function activateRemotePlayback(track) {
+  // The measured Chrome loopback received RTP but did not decode it until an
+  // active playback consumer existed. This element remains physically silent.
+  const audio=document.createElement('audio');
+  audio.autoplay=true;audio.muted=true;audio.volume=0;
+  audio.srcObject=new MediaStream([track]);renderers.push(audio);
+  audio.play().then(()=>events.push({type:'muted_renderer_playing',at:ctx.currentTime,
+    muted:audio.muted,volume:audio.volume})).catch(()=>events.push({type:'muted_renderer_play_failed'}));
+  return audio;
+}
+const meterSource = `class Meter extends AudioWorkletProcessor {
+  process(inputs, outputs) {
+    const data = inputs[0] && inputs[0][0];
+    let first=-1, last=-1, peak=0;
+    if (data) {
+      for (let i=0;i<data.length;i++) {
+        if (Math.abs(data[i])>0.002) {if(first<0) first=i;last=i;}
+        peak=Math.max(peak,Math.abs(data[i]));
+      }
+      for (const channel of outputs[0] || []) channel.set(data);
+    }
+    this.port.postMessage({frame:currentFrame/sampleRate,has_input:!!data,
+      input_samples:data?data.length:0,first:first<0?null:(currentFrame+first)/sampleRate,
+      last:last<0?null:(currentFrame+last)/sampleRate,peak});
+    return true;
+  }
+}
+registerProcessor('sample-meter',Meter);`;
+function meter(kind) {
+  const node = new AudioWorkletNode(ctx,'sample-meter',{outputChannelCount:[1]});
+  node.onprocessorerror=()=>events.push({type:'meter_processor_error',kind,at:ctx.currentTime});
+  node.port.onmessage = ({data}) => {
+    if (!active || data.frame<active.started) return;
+    const stats=active.meters[kind];
+    stats.processed_blocks++;
+    if(data.has_input) stats.input_blocks++;
+    stats.input_samples+=data.input_samples;
+    stats.peak=Math.max(stats.peak,data.peak);
+    if(data.first===null) return;
+    stats.non_silent_blocks++;
+    const target=active[kind];
+    if(target.length < 24000) target.push(data);
+    else active.overflow=true;
+  };
+  nodes.push(node);
+  return node;
+}
+function trace(raw) {
+  let value;
+  try {value=JSON.parse(raw);} catch {return;}
+  if(events.length>=4096) return;
+  // No arbitrary provider object, SDP or credentials enter the report.
+  events.push({type:value.type, at:ctx.currentTime,
+    session_id:value.type==='session.started' ? value.session?.id : undefined});
+}
+window.prepare = async () => {
+  ctx = new AudioContext({sampleRate:48000,latencyHint:'interactive'});
+  await ctx.resume();
+  const url=URL.createObjectURL(new Blob([meterSource],{type:'text/javascript'}));
+  await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+  sink=ctx.createGain(); sink.gain.value=0; sink.connect(ctx.destination);
+  outgoing=ctx.createMediaStreamDestination();
+  const inputMeter=meter('input'); inputMeter.connect(outgoing);
+  window.inputMeter=inputMeter;
+  fixture=await ctx.decodeAudioData(await (await fetch('/fixture.wav')).arrayBuffer());
+  if(fixture.duration*4>=60) throw Error('synthetic_input_budget');
+  pc=new RTCPeerConnection({iceServers:[]});
+  pc.ontrack=e=>{
+    events.push({type:'remote_track',kind:e.track.kind,at:ctx.currentTime,
+      enabled:e.track.enabled,muted:e.track.muted,state:e.track.readyState});
+    for(const type of ['mute','unmute','ended']) e.track.addEventListener(type,()=>
+      events.push({type:'remote_track_'+type,kind:e.track.kind,at:ctx.currentTime}));
+    const source=ctx.createMediaStreamSource(new MediaStream([e.track]));
+    incomingMeter=meter('output'); source.connect(incomingMeter); incomingMeter.connect(sink);
+    nodes.push(source);
+    activateRemotePlayback(e.track);
+  };
+  pc.addTrack(outgoing.stream.getAudioTracks()[0],outgoing.stream);
+  dc=pc.createDataChannel('oai-events'); dc.onmessage=e=>trace(e.data);
+  await pc.setLocalDescription(await pc.createOffer());
+  await deadline(()=>pc.iceGatheringState==='complete',10000,'offer_ice_timeout');
+  return {sdp:pc.localDescription.sdp,duration:fixture.duration,sample_rate:ctx.sampleRate,
+    threshold,physical_gain:sink.gain.value};
+};
+window.applyAnswer=async sdp=>{
+  await pc.setRemoteDescription({type:'answer',sdp});
+  await deadline(()=>pc.connectionState==='connected' && dc.readyState==='open',18000,'media_connection_timeout');
+  return {state:pc.connectionState,data_channel:dc.readyState,at:ctx.currentTime};
+};
+window.state=()=>({events:events.slice(),state:pc?.connectionState,at:ctx?.currentTime});
+window.useCorrectionFixture=async()=>{
+  const response=await fetch('/correction.wav');
+  if(!response.ok) throw Error('correction_fixture_missing');
+  const next=await ctx.decodeAudioData(await response.arrayBuffer());
+  if(!(next.duration>0 && next.duration*4<60)) throw Error('synthetic_input_budget');
+  fixture=next;
+  return {duration:fixture.duration};
+};
+window.diagnostics=async()=>{
+  const peers={};
+  const fields=['id','type','kind','mediaType','packetsSent','bytesSent','packetsReceived','bytesReceived',
+    'totalSamplesReceived','totalAudioEnergy','totalSamplesDuration','audioLevel','jitterBufferEmittedCount',
+    'concealedSamples','silentConcealedSamples','dtlsState','iceState','state','mimeType','clockRate'];
+  const track=t=>t?{kind:t.kind,enabled:t.enabled,muted:t.muted,state:t.readyState}:null;
+  for(const [name,peer] of [['receiver',pc],['return_sender',localPeer]]) {
+    if(!peer) continue;
+    const counters=[];
+    (await peer.getStats()).forEach(s=>{
+      if(['inbound-rtp','outbound-rtp','media-source','transport','codec'].includes(s.type)) {
+        const row={};for(const field of fields) if(s[field]!==undefined) row[field]=s[field];
+        counters.push(row);
+      }
+    });
+    peers[name]={connection:peer.connectionState,ice:peer.iceConnectionState,
+      transceivers:peer.getTransceivers().map(t=>({direction:t.direction,current_direction:t.currentDirection,
+        sender:track(t.sender.track),receiver:track(t.receiver.track)})),counters};
+  }
+  return {peers,events:events.slice(),audio_context:ctx?.state};
+};
+window.startTurn=()=>{
+  const stats=()=>({processed_blocks:0,input_blocks:0,input_samples:0,non_silent_blocks:0,peak:0});
+  active={input:[],output:[],return_source:[],meters:{input:stats(),output:stats(),return_source:stats()},
+    overflow:false,started:ctx.currentTime,scheduled:ctx.currentTime+0.15};
+  const source=ctx.createBufferSource(); source.buffer=fixture; source.connect(window.inputMeter);
+  source.start(active.scheduled); nodes.push(source);
+  active.expected_end=active.scheduled+fixture.duration;
+  return {scheduled:active.scheduled,expected_end:active.expected_end,duration:fixture.duration};
+};
+window.result=()=>{
+  if(!active) return null;
+  const inputLast=active.input.length ? Math.max(...active.input.map(x=>x.last)):null;
+  const first=active.output.length ? Math.min(...active.output.map(x=>x.first)):null;
+  const last=active.output.length ? Math.max(...active.output.map(x=>x.last)):null;
+  return {...active,input:undefined,output:undefined,return_source:undefined,
+    last_input_sample:inputLast,first_remote_sample:first,last_remote_sample:last,
+    first_return_source_sample:active.return_source.length?active.return_source[0].first:null,
+    latency_ms:inputLast===null||first===null?null:(first-inputLast)*1000,
+    at:ctx.currentTime,threshold,sample_rate:ctx.sampleRate,physical_gain:sink.gain.value};
+};
+window.offlineCheck=async()=>{
+  const offered=await window.prepare();
+  localPeer=new RTCPeerConnection({iceServers:[]});
+  localPeer.ondatachannel=e=>{e.channel.onmessage=()=>{};};
+  const remoteStream=ctx.createMediaStreamDestination();
+  localPeer.addTrack(remoteStream.stream.getAudioTracks()[0],remoteStream.stream);
+  await localPeer.setRemoteDescription({type:'offer',sdp:offered.sdp});
+  await localPeer.setLocalDescription(await localPeer.createAnswer());
+  await deadline(()=>localPeer.iceGatheringState==='complete',10000,'local_ice_timeout');
+  await window.applyAnswer(localPeer.localDescription.sdp);
+  const before=await window.diagnostics();
+  const turn=window.startTurn();
+  const oscillator=ctx.createOscillator(); oscillator.frequency.value=660;
+  const gain=ctx.createGain(); gain.gain.value=0.15;
+  const returnMeter=meter('return_source');
+  oscillator.connect(gain);gain.connect(returnMeter);returnMeter.connect(remoteStream);
+  oscillator.start(turn.expected_end+0.25);oscillator.stop(turn.expected_end+0.75);
+  nodes.push(oscillator,gain);
+  await sleep((fixture.duration+2)*1000);
+  const result=window.result();
+  const after=await window.diagnostics();
+  const cleanup=await window.cleanup();
+  return {result,before,after,cleanup};
+};
+window.cleanup=()=>cleanupPromise??=(async()=>{
+  for(const audio of renderers){audio.pause();audio.srcObject=null;}
+  for(const n of nodes) {try{if(n.stop)n.stop();n.disconnect();}catch{}}
+  outgoing?.stream.getTracks().forEach(t=>t.stop());
+  for(const p of [pc,localPeer]) if(p){
+    p.getSenders().forEach(s=>s.track?.stop());p.getReceivers().forEach(r=>r.track?.stop());p.close();
+  }
+  if(ctx && ctx.state!=='closed') await ctx.close();
+  return {peer:pc?.connectionState,local_peer:localPeer?.connectionState,
+    context:ctx?.state,tracks_stopped:outgoing?.stream.getTracks().every(t=>t.readyState==='ended'),
+    physical_gain:sink?.gain.value};
+})();
+</script>

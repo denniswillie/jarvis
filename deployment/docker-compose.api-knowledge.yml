@@ -1,0 +1,21 @@
+# Connection only: does not select live memory authority or enable top-level capabilities.
+services:
+  jarvis-backend:
+    environment:
+      SECOND_BRAIN_HINDSIGHT_URL: http://hindsight-api:8888
+      SECOND_BRAIN_HINDSIGHT_PRIVATE_HTTP_ORIGIN: http://hindsight-api:8888
+      SECOND_BRAIN_HINDSIGHT_API_KEY_FILE: /run/secrets/hindsight_api_key
+      SECOND_BRAIN_KNOWLEDGE_AREA_ID: ${JARVIS_KNOWLEDGE_AREA_ID:-}
+      SECOND_BRAIN_KNOWLEDGE_ENABLED: ${JARVIS_KNOWLEDGE_ENABLED:-false}
+    secrets:
+      - hindsight_api_key
+    networks:
+      - default
+      - knowledge-clients
+secrets:
+  hindsight_api_key:
+    file: ${JARVIS_HINDSIGHT_SECRET_DIR:?Set the private Hindsight secrets directory}/api-key
+networks:
+  knowledge-clients:
+    external: true
+    name: ${JARVIS_KNOWLEDGE_NETWORK:-jarvis-knowledge-clients}

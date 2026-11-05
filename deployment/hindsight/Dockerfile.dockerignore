@@ -1,0 +1,12 @@
+**
+!backend/
+!backend/app/
+!backend/app/__init__.py
+!backend/app/knowledge/
+!backend/app/knowledge/__init__.py
+!backend/app/knowledge/service_policy.py
+!backend/app/knowledge/service_entrypoint.py
+!deployment/
+!deployment/hindsight/
+!deployment/hindsight/Dockerfile
+!deployment/hindsight/requirements.txt

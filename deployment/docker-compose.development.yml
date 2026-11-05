@@ -1,0 +1,6 @@
+services:
+  jarvis-backend:
+    environment:
+      APP_ENV: development
+      LOG_JSON: "false"
+      PUBLIC_BASE_URL: ${JARVIS_DEV_PUBLIC_BASE_URL:-http://127.0.0.1:9000}
