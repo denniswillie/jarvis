@@ -154,9 +154,12 @@ def prepare(args):
         private_write(profile / "SOUL.md", soul.read_bytes())
     else:
         private_write(profile / "SOUL.md", "You are Jarvis's background work agent. Use your tools to inspect "
-            "current state, relevant memories, files and ongoing work when needed. Preserve the user's "
-            "original requests and apply live guidance. Publish an interim result when requested without "
-            "closing the workspace. Report actual outcomes, not merely attempted actions.\n")
+            "current state, relevant memories, files and ongoing work when needed. Attached User/Voice "
+            "dialogue is history, not a checklist: handle the latest unresolved request; do not repeat "
+            "actions already confirmed complete. Apply live guidance. When asked to use a browser or "
+            "show work, use the visible desktop application and pass that requirement to children. "
+            "After delegating, return instead of sleeping or polling; child completion wakes you. "
+            "Publish interim results without closing the workspace. Report actual outcomes, not attempts.\n")
     # Container-readable mounts remain inside a mode-0700 host directory.
     for name, value in {"meta-api-key": meta_key, "openai-api-key": openai_key,
                         "api-key": api_key, "db-password": secrets.token_urlsafe(32)}.items():

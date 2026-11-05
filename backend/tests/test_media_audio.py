@@ -244,3 +244,150 @@ async def test_native_helper_uses_same_packet_format():
     result, _ = await asyncio.wait_for(process.communicate(), 3)
     assert process.returncode == 0
     assert result == struct.pack("!H", len(packet())) + packet()
+
+
+TRACK_A = "spotify:track:" + "a" * 22
+TRACK_B = "spotify:track:" + "b" * 22
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("title,artist", [
+    ("Menghujam Jantungku", "Tompi"), ("Lost in Japan", "Shawn Mendes"),
+])
+async def test_repeated_song_action_preserves_playing_stream_and_sends_no_phone_command(tmp_path, title, artist):
+    media, control, session, notified = playback_control(tmp_path)
+    media.search_track = AsyncMock(return_value=TRACK_A)
+    first = await media.start(session_id=session, media_id=uuid4(), uri=None,
+                              song_title=title, artist=artist)
+    capture = first.capture = SimpleNamespace(returncode=None)
+    first.claimed = True
+    first.volume = 0.3
+    media.phone_state(session_id=session, media_id=first.id, state="playing")
+    with patch("app.media_audio.terminate", AsyncMock()) as terminate_capture:
+        result = await control._dispatch("owner", session, uuid4(),
+            AppCommand(action="media.start", song_title=title, artist=artist))
+    assert result["outcome"] == "media_playing"
+    assert result["media_id"] == str(first.id)
+    assert result["summary"].startswith("Already playing ")
+    assert result["playback_confirmed"] is True
+    assert media.lease is first and first.capture is capture
+    assert first.claimed and first.volume == 0.3
+    assert not notified.is_set()
+    media.search_track.assert_awaited_once()
+    media._ensure_player.assert_awaited_once()
+    media._ctl.assert_not_awaited()
+    terminate_capture.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_duplicate_song_starts_coalesce_before_phone_ack(tmp_path):
+    media, _, session, _ = playback_control(tmp_path)
+    media.search_track = AsyncMock(return_value=TRACK_A)
+    async def start():
+        return await media.start(session_id=session, media_id=uuid4(), uri=None,
+                                 song_title="Song", artist="Artist")
+    first, second, third = await asyncio.gather(start(), start(), start())
+    assert first is second is third
+    assert first.state == "awaiting_phone"
+    media.search_track.assert_awaited_once()
+    media._ensure_player.assert_awaited_once()
+    media._ctl.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_title_normalization_uri_alias_and_resume_keep_same_selection(tmp_path):
+    media, _, session, _ = playback_control(tmp_path)
+    media.search_track = AsyncMock(return_value=TRACK_A)
+    first = await media.start(session_id=session, media_id=uuid4(), uri=None,
+                              song_title="Some Song", artist="Artist")
+    media.phone_state(session_id=session, media_id=first.id, state="playing")
+    for arguments in (
+        {"uri": None, "song_title": "  SOME   SONG ", "artist": "artist"},
+        {"uri": TRACK_A},
+        {"uri": None},
+        {"uri": None, "song_title": "Catalog alias", "artist": "Artist"},
+    ):
+        assert await media.start(session_id=session, media_id=uuid4(), **arguments) is first
+    assert media.search_track.await_count == 2
+    media._ensure_player.assert_awaited_once()
+    media._ctl.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("change", ["track", "session", "failed", "disconnected", "stopped"])
+async def test_new_selection_or_unusable_stream_is_not_suppressed(tmp_path, change):
+    media, _, session, _ = playback_control(tmp_path)
+    first = await media.start(session_id=session, media_id=uuid4(), uri=TRACK_A)
+    first.state = "playing" if change in {"track", "session"} else change
+    second = await media.start(session_id=uuid4() if change == "session" else session,
+        media_id=uuid4(), uri=TRACK_B if change == "track" else TRACK_A)
+    assert second is not first and media.lease is second
+    assert first.state == "replaced"
+    media._ctl.assert_awaited_once_with("pause")
+    assert not await media.stop(session_id=session, media_id=first.id)
+
+
+@pytest.mark.asyncio
+async def test_explicit_restart_creates_one_new_stream_and_retry_does_not_restart_again(tmp_path):
+    media, control, session, notified = playback_control(tmp_path)
+    first = await media.start(session_id=session, media_id=uuid4(), uri=TRACK_A)
+    media.phone_state(session_id=session, media_id=first.id, state="playing")
+    operation = uuid4()
+    command = AppCommand(action="media.start", spotify_uri=TRACK_A, restart=True)
+    pending = asyncio.create_task(control._dispatch("owner", session, operation, command))
+    await asyncio.wait_for(notified.wait(), 1)
+    second = media.lease
+    assert second is not first and second.id == operation and second.restart
+    media.phone_state(session_id=session, media_id=second.id, state="playing")
+    assert (await asyncio.wait_for(pending, 1))["outcome"] == "media_playing"
+    notified.clear()
+    assert (await control._dispatch("owner", session, operation, command))["media_id"] == str(second.id)
+    assert not notified.is_set()
+    media._ctl.assert_awaited_once_with("pause")
+    with pytest.raises(MediaError, match="media_command_conflict"):
+        await media.start(session_id=session, media_id=operation, uri=TRACK_A, restart=False)
+
+
+@pytest.mark.asyncio
+async def test_explicit_restart_without_title_uses_current_known_uri(tmp_path):
+    media, _, session, _ = playback_control(tmp_path)
+    first = await media.start(session_id=session, media_id=uuid4(), uri=TRACK_A)
+    first.state = "playing"
+    second = await media.start(session_id=session, media_id=uuid4(), uri=None, restart=True)
+    assert second is not first and second.uri == TRACK_A
+
+
+@pytest.mark.asyncio
+async def test_restart_without_a_known_selection_fails_without_starting_player(tmp_path):
+    media, _, session, _ = playback_control(tmp_path)
+    with pytest.raises(MediaError, match="Specify the song"):
+        await media.start(session_id=session, media_id=uuid4(), uri=None, restart=True)
+    media._ensure_player.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_phone_failure_during_alias_lookup_is_not_reused(tmp_path):
+    media, _, session, _ = playback_control(tmp_path)
+    first = await media.start(session_id=session, media_id=uuid4(), uri=TRACK_A)
+    first.state = "playing"
+    async def lookup(*_):
+        first.state = "failed"
+        return TRACK_A
+    media.search_track = AsyncMock(side_effect=lookup)
+    second = await media.start(session_id=session, media_id=uuid4(), uri=None,
+                               song_title="Song", artist="Artist")
+    assert second is not first
+
+
+def test_restart_flag_is_strict_and_only_belongs_to_media_start():
+    assert AppCommand(action="media.start", restart=True).restart is True
+    assert AppCommand(action="media.start").restart is None
+    for invalid in (
+        {"action": "media.start", "restart": "true"},
+        {"action": "media.start", "restart": 1},
+        {"action": "media.stop", "media_id": uuid4(), "restart": True},
+        {"action": "recording.start", "include_jarvis_audio": True, "restart": False},
+        {"action": "show_link", "url": "https://example.com/", "description": "Example", "restart": True},
+    ):
+        with pytest.raises(ValidationError):
+            AppCommand(**invalid)

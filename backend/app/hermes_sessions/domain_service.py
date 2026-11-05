@@ -92,9 +92,23 @@ class ScopedRetainedSessionService(RetainedSessionService):
         return await super().steer_input(receipt.session_id, receipt.admission_id)
 
     async def steer_work(self, master_id, work_id, admission_id):
-        # General child inputs retain their own scope; only direct owner Voice
-        # opts into guidance under the active master's unchanged authority.
-        await self._child_of(master_id, work_id)
+        # Guidance may join the current child turn without changing its grant.
+        # Versioned requests and different session/tool scopes stay in FIFO.
+        child = await self._child_of(master_id, work_id)
+        state = await self.client.snapshot(child.native_id)
+        pending = state.get("pending", ())
+        incoming = next((row for row in pending if row.get("admission_id") == admission_id
+                         and row.get("status") == "queued"), None)
+        active = next((row for row in pending if row.get("status") == "started"
+                       and not row.get("steering")
+                       and row.get("execution_generation") == state.get("execution_generation")), None)
+        if state.get("running") is True and incoming is not None and active is not None:
+            new_scope = await asyncio.to_thread(self.scopes.get, work_id, incoming["input_id"])
+            old_scope = await asyncio.to_thread(self.scopes.get, work_id, active["input_id"])
+            if (new_scope.request_event_id is None and old_scope.request_event_id is None
+                    and new_scope.jarvis_session_id == old_scope.jarvis_session_id
+                    and new_scope.allowed_tools == old_scope.allowed_tools):
+                return await super().steer_work(master_id, work_id, admission_id)
         return {**await self.receipt(work_id, admission_id),
                 "steering": "fifo", "immediate_steering": False}
 
@@ -165,9 +179,10 @@ class ScopedWorkSessionBridge(WorkSessionBridge):
             raise BindingError("Scoped child send requires the originating native input")
         await asyncio.to_thread(self.scopes.derive, dispatch.scope, child_id,
                                 identity(child_id, "input", input_id), kind="work")
+        native_steer = steer and dispatch.scope.request_event_id is None
         result = await super().send_work(master_id, child_id, input_id=input_id,
-                                         text=text, steer=False)
-        if steer:
+                                         text=text, steer=native_steer)
+        if steer and not native_steer:
             result.update(delivery="queued", steering="fifo", immediate_steering=False,
                           instruction="Submitted through the ordinary FIFO queue; "
                                       "not injected into an in-flight turn.")

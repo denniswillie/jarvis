@@ -51,6 +51,7 @@ class MediaLease:
     requested_uri: str | None = None
     song_title: str | None = None
     artist: str | None = None
+    restart: bool = False
     playback_ready: asyncio.Event = field(default_factory=asyncio.Event, repr=False)
 
 
@@ -208,7 +209,8 @@ class SoloistMediaService:
             raise MediaError("Spotify song lookup failed. No new music was started.") from None
 
     async def start(self, *, session_id: UUID, media_id: UUID, uri: str | None,
-                    song_title: str | None = None, artist: str | None = None) -> MediaLease:
+                    song_title: str | None = None, artist: str | None = None,
+                    restart: bool = False) -> MediaLease:
         if uri is not None and re.fullmatch(r"spotify:(track|album|playlist):[A-Za-z0-9]{22}", uri) is None:
             raise MediaError("invalid_spotify_uri")
         if (uri and song_title) or (artist and not song_title):
@@ -216,10 +218,35 @@ class SoloistMediaService:
         async with self.lock:
             if self.lease is not None and self.lease.id == media_id:
                 if (self.lease.session_id != session_id or
-                        (self.lease.requested_uri, self.lease.song_title, self.lease.artist) != (uri, song_title, artist)):
+                        (self.lease.requested_uri, self.lease.song_title, self.lease.artist, self.lease.restart)
+                        != (uri, song_title, artist, restart)):
                     raise MediaError("media_command_conflict")
                 return self.lease
+            current = self.lease
+
+            def reusable():
+                return (not restart and current is not None and current.session_id == session_id
+                        and current.state in {"awaiting_phone", "sending", "receiving", "playing"})
+
+            # Preserve the existing stream, including its capture and phone ID.
+            # The lock also coalesces matching starts before the phone has replied.
+            normalize = lambda value: " ".join((value or "").casefold().split())
+            if reusable() and (
+                (uri is not None and uri == current.uri)
+                or (song_title is not None and normalize(song_title) == normalize(current.song_title)
+                    and normalize(artist) == normalize(current.artist))
+                or (uri is None and song_title is None and current.state == "playing")
+            ):
+                return current
             selected_uri = await self.search_track(song_title, artist) if song_title else uri
+            # Different spellings can resolve to the same Spotify track. Check
+            # state again: a phone failure may have arrived during song lookup.
+            if reusable() and selected_uri is not None and selected_uri == current.uri:
+                return current
+            if restart and selected_uri is None:
+                if current is None or current.session_id != session_id or current.uri is None:
+                    raise MediaError("Specify the song or Spotify URI to restart.")
+                selected_uri = current.uri
             await self._ensure_player()
             if self.lease is not None:
                 self.lease.state = "replaced"
@@ -227,7 +254,7 @@ class SoloistMediaService:
                 await self._ctl("pause")
                 await terminate(self.lease.capture)
             self.lease = MediaLease(media_id, session_id, selected_uri,
-                requested_uri=uri, song_title=song_title, artist=artist)
+                requested_uri=uri, song_title=song_title, artist=artist, restart=restart)
             return self.lease
 
     def current(self, session_id: UUID, media_id: UUID) -> MediaLease:

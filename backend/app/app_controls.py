@@ -20,6 +20,7 @@ APP_CONTROL_DESCRIPTION = (
     "Control Spotify music, Jarvis recording, its sandbox desktop, or show a link on the phone. "
     "show_link displays url and description on the phone; returning a URL alone does not display it. "
     "media.start takes song_title and optional artist, or an exact spotify_uri; omit all to resume. "
+    "An already-playing selection continues; restart=true is only for an explicit restart request. "
     "Basic music playback uses this API directly, never Hermes or a browser. "
     "recording.start needs only confirmed include_jarvis_audio, no ID or state lookup; ask only if unanswered. "
     "Ordinary recording includes playing music. Only explicit voiceover mode silences and excludes all playback. "
@@ -46,6 +47,8 @@ class AppCommand(BaseModel):
         description="Only media.start: requested song title. Backend resolves it; no ID lookup or Hermes needed.")
     artist: str | None = Field(default=None, min_length=1, max_length=200, pattern=r"\S",
         description="Only media.start with song_title: artist name if supplied by the user.")
+    restart: bool | None = Field(default=None, strict=True,
+        description="Only media.start: true only when the user explicitly asks to restart playback from the beginning. Otherwise omit.")
     volume: float | None = Field(default=None, ge=0, le=1, strict=True,
         description="Required only for media.volume, from 0 (muted) to 1.")
     action: Literal["show_link", "recording.start", "recording.stop", "sandbox.start", "sandbox.stop", "media.start", "media.stop", "media.volume"]
@@ -84,7 +87,7 @@ class AppCommand(BaseModel):
                 or (self.recording_mode == "voiceover" and self.include_jarvis_audio is not False)):
             raise ValueError("Recording mode belongs only to start; voiceover excludes Jarvis audio")
         if self.action.startswith("media."):
-            allowed = {"media.start": {"spotify_uri", "song_title", "artist"}, "media.stop": {"media_id"},
+            allowed = {"media.start": {"spotify_uri", "song_title", "artist", "restart"}, "media.stop": {"media_id"},
                        "media.volume": {"media_id", "volume"}}[self.action]
             supplied = {key for key, value in self.model_dump().items()
                         if key != "action" and value is not None and not (key == "resume" and value is False)}
@@ -93,7 +96,7 @@ class AppCommand(BaseModel):
             if (self.spotify_uri is not None and self.song_title is not None) or (self.artist is not None and self.song_title is None):
                 raise ValueError("Use song_title and optional artist, or spotify_uri, not both")
             return self
-        if any(value is not None for value in (self.media_id, self.spotify_uri, self.volume, self.song_title, self.artist)):
+        if any(value is not None for value in (self.media_id, self.spotify_uri, self.volume, self.song_title, self.artist, self.restart)):
             raise ValueError("Media fields are only valid for media actions")
         required = {"recording.start": {"include_jarvis_audio"}, "recording.stop": {"recording_id"},
                     "sandbox.start": {"allocation_id", "generation"}, "sandbox.stop": {"view_id"}}[self.action]
@@ -361,19 +364,22 @@ class AppControlService:
             try:
                 if command.action == "media.start":
                     lease = await self.media_audio.start(session_id=session_id, media_id=operation_id,
-                        uri=command.spotify_uri, song_title=command.song_title, artist=command.artist)
-                    sent = self._notify(session_id, {"type": "media.command", "action": "start",
-                                                    "media_id": str(lease.id), "volume": lease.volume})
-                    if not sent:
-                        await self.media_audio.stop(session_id=session_id, media_id=lease.id)
-                        return unavailable("The phone did not accept the music connection.")
+                        uri=command.spotify_uri, song_title=command.song_title, artist=command.artist,
+                        restart=command.restart is True)
+                    if lease.id == operation_id and lease.state == "awaiting_phone":
+                        sent = self._notify(session_id, {"type": "media.command", "action": "start",
+                                                        "media_id": str(lease.id), "volume": lease.volume})
+                        if not sent:
+                            await self.media_audio.stop(session_id=session_id, media_id=lease.id)
+                            return unavailable("The phone did not accept the music connection.")
                     playback = await self.media_audio.wait_for_playback(lease)
                     title = lease.song_title or "music"
                     if lease.artist:
                         title += " by " + lease.artist
                     if playback == "playing":
                         return {"status": "success", "outcome": "media_playing", "media_id": str(lease.id),
-                                "playback_confirmed": True, "summary": "Playing " + title + "."}
+                                "playback_confirmed": True,
+                                "summary": ("Already playing " if lease.id != operation_id else "Playing ") + title + "."}
                     if playback in ("failed", "stopped", "replaced", "disconnected"):
                         return unavailable("Music did not start; the connection failed or the request was stopped or replaced.")
                     return {"status": "success", "outcome": "media_requested", "media_id": str(lease.id),

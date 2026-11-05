@@ -48,6 +48,12 @@ def control_argument_schema(parameters):
                description="Play a requested song by title; artist is null when unspecified."),
         branch("media.start", ("spotify_uri",), description="Play an exact known Spotify URI."),
         branch("media.start", (), description="Resume playback without selecting a new song."),
+        branch("media.start", ("song_title", "artist", "restart"), nullable=("artist",),
+               fixed={"restart": True}, description="Explicitly restart the requested song from the beginning."),
+        branch("media.start", ("spotify_uri", "restart"), fixed={"restart": True},
+               description="Explicitly restart an exact known Spotify selection."),
+        branch("media.start", ("restart",), fixed={"restart": True},
+               description="Explicitly restart the current known Spotify selection."),
         branch("media.stop", ("media_id",), description="Stop the current music stream."),
         branch("media.volume", ("media_id", "volume"), description="Set current music volume from 0 to 1."),
     ]
@@ -122,7 +128,16 @@ async def create_structured_selection(client, **request):
     reply = await client.responses.create(**structured_request(request))
     if reply.status != "completed":
         raise ValueError("Structured routing response is incomplete")
-    parsed = json.loads(reply.output_text)
+    # output_text concatenates commentary and final-answer messages. Spark can
+    # narrate a lookup before returning its JSON; only the final message selects
+    # an action. Never extract a command from prose or an earlier message.
+    messages = [item for item in reply.output if item.type == "message"]
+    if not messages or messages[-1].role != "assistant" or messages[-1].status != "completed":
+        raise ValueError("Structured routing final message is unavailable")
+    final = messages[-1]
+    if not final.content or any(part.type != "output_text" for part in final.content):
+        raise ValueError("Structured routing final message is not text")
+    parsed = json.loads("".join(part.text for part in final.content))
     if not isinstance(parsed, dict) or set(parsed) != {"selection"}:
         raise ValueError("Invalid structured routing response")
     selected = parsed["selection"]

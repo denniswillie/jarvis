@@ -125,6 +125,60 @@ class DomainScopesTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(parent_scope.request_event_id)
         self.assertEqual(parent_scope.jarvis_session_id, self.scope.jarvis_session_id)
 
+    async def live_child(self):
+        self.scope = await self.bridge.service.bind_input_scope(
+            self.master.logical_id, input_id="live-parent", jarvis_session_id=uuid4(),
+            allowed_tools=frozenset({"read_fixture"}))
+        self.receipt = await self.bridge.service.send(
+            self.master.logical_id, input_id="live-parent", text="Live request")
+        child = await self.create()
+        binding = self.bridge.service.bindings.get(child["session_id"])
+        original = self.client.snapshot
+
+        async def running(session_id):
+            state = await original(session_id)
+            if session_id == binding.native_id:
+                inputs = [(input_id, value[1]) for (sid, input_id), value in self.client.inputs.items()
+                          if sid == session_id]
+                state.update(running=True, execution_generation=1, pending=[
+                    {"input_id": input_id, "admission_id": receipt["admission_id"],
+                     "status": "started" if index == 0 else "queued",
+                     "execution_generation": 1 if index == 0 else None}
+                    for index, (input_id, receipt) in enumerate(inputs)])
+            return state
+
+        self.client.snapshot = running
+        return child
+
+    async def test_unversioned_same_scope_child_guidance_uses_native_steer(self):
+        child = await self.live_child()
+        result = await self.tool({"action": "steer", "session_id": child["session_id"],
+                                  "message": "Open the visible browser"}, call="live-guidance")
+        self.assertEqual(len(self.client.steers), 1)
+        self.assertEqual(self.client.steers[0]["admission_id"], result["admission_id"])
+        self.assertTrue(self.bridge.deliveries.pending()[-1]["steer"])
+        self.assertEqual(len(self.client.inputs), 4)  # Two parent and two child inputs.
+
+    async def test_unversioned_guidance_from_different_phone_session_stays_queued(self):
+        child = await self.live_child()
+        other = await self.bridge.service.bind_input_scope(
+            self.master.logical_id, input_id="other-phone", jarvis_session_id=uuid4(),
+            allowed_tools=self.scope.allowed_tools)
+        receipt = await self.bridge.service.send(self.master.logical_id, input_id="other-phone", text="Other")
+        await self.tool({"action": "steer", "session_id": child["session_id"], "message": "Different scope"},
+                        call="other-guidance", scope=other, admission=receipt.admission_id)
+        self.assertEqual(self.client.steers, [])
+
+    async def test_unversioned_guidance_cannot_change_active_child_tool_scope(self):
+        child = await self.live_child()
+        other = await self.bridge.service.bind_input_scope(
+            self.master.logical_id, input_id="other-tools", jarvis_session_id=self.scope.jarvis_session_id,
+            allowed_tools=frozenset({"write_fixture"}))
+        receipt = await self.bridge.service.send(self.master.logical_id, input_id="other-tools", text="Other")
+        await self.tool({"action": "steer", "session_id": child["session_id"], "message": "Different tools"},
+                        call="other-guidance", scope=other, admission=receipt.admission_id)
+        self.assertEqual(self.client.steers, [])
+
     async def test_lost_submit_reply_recovers_from_scope_refs_without_transcript(self):
         self.client.lose_submit_reply = True
         with self.assertRaises(HermesOutcomeUnknown):
